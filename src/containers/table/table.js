@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
+import Player from './player';
 
 //styles
 const tableContainerStyle = {
@@ -15,9 +16,10 @@ class Table extends Component {
 
   render(){
     return (
-      <div style={tableContainerStyle} className="Table">
+      <Container style={tableContainerStyle} className="Table">
         <Dealer/>
-      </div>
+        <Player/>
+      </Container>
     )
   }
 }

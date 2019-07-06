@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container } from 'semantic-ui-react';
 
 const dealerBoxStyle = {
   minHeight: 200,
@@ -8,7 +7,9 @@ const dealerBoxStyle = {
 
 const dealerCardBoxStyle = {
   position: "absolute",
-  margin: "0 auto",
+  left: "50%",
+  marginLeft: "-75px",
+  marginTop: 100,
   minHeight: 60,
   minWidth: 175,
 }

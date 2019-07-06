@@ -10,10 +10,6 @@ const containerStyle = {
 }
 
 class NavBar extends Component {
-  constructor(props){
-    super(props);
-  }
-
   //Event listeners
   toggleBlackjackRules = () => {
     this.props.blackjackRulesOpen ?

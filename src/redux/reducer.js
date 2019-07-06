@@ -3,7 +3,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED }
        from './actionType';
 
-const blackjackRulesReducer = ( oldState = false, action ) => {
+const blackjackRulesReducer = ( oldState = true, action ) => {
   switch(action.type) {
     case BLACKJACK_RULES_OPEN:
       return true;
@@ -14,7 +14,7 @@ const blackjackRulesReducer = ( oldState = false, action ) => {
   }
 }
 
-const casinoRulesReducer = ( oldState  = false, action ) => {
+const casinoRulesReducer = ( oldState  = true, action ) => {
   switch(action.type) {
     case CASINO_RULES_OPEN:
       return true;

@@ -26,8 +26,8 @@ const casinoRulesReducer = ( oldState  = true, action ) => {
 }
 
 const rootReducer = combineReducers({
-  showBlackjackRules: blackjackRulesReducer,
-  showCasinoRules: casinoRulesReducer,
+  blackjackRulesOpen: blackjackRulesReducer,
+  casinoRulesOpen: casinoRulesReducer,
 })
 
 export default rootReducer;

@@ -78,7 +78,9 @@ const playerCardsReducer = ( oldState = false, action ) => {
     case PLAYER_START:
       return action.payload;
     case PLAYER_HIT:
-      return [...oldState.push(action.payload)];
+      let newState = [...oldState];
+      newState.push(action.payload);
+      return newState;
     default:
       return oldState;
   }

@@ -13,16 +13,25 @@ class Player extends Component {
 
   render(){
     let cards = [];
+    let total = 0;
     if(this.props.playerCards){
       for(let i = 0; i < this.props.playerCards.length; i++){
         cards.push(<Card key={`P${i}`} number={this.props.playerCards[i]}/>);
+        if(this.props.playerCards[i] > 10){
+          total += 10;
+        } else{
+          total += this.props.playerCards[i];
+        }
       }
     }
+
     return (
       <Container className="playerBox" style={playerBoxStyle}>
         <Grid columns='equal'>
          <Grid.Column>
-           <Segment></Segment>
+           <Segment>
+            Total: {total}
+           </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
            <Segment>

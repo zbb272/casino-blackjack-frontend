@@ -3,6 +3,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
+       DEALER_START, DEALER_HIT, PLAYER_START, PLAYER_HIT,
       }
        from './actionType';
 
@@ -28,12 +29,12 @@ const casinoRulesReducer = ( oldState  = true, action ) => {
   }
 }
 
-const roundOverReducer = ( oldState = true, action ) => {
+const roundReducer = ( oldState = false, action ) => {
   switch(action.type) {
     case ROUND_FINISHED:
-      return true;
-    case ROUND_STARTED:
       return false;
+    case ROUND_STARTED:
+      return true;
     default:
       return oldState;
   }
@@ -61,12 +62,36 @@ const dealerTurnReducer = ( oldState = false, action ) => {
   }
 }
 
+const dealerCardsReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case DEALER_START:
+      return action.payload;
+    case DEALER_HIT:
+      return [...oldState.push(action.payload)];
+    default:
+      return oldState;
+  }
+}
+
+const playerCardsReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case PLAYER_START:
+      return action.payload;
+    case PLAYER_HIT:
+      return [...oldState.push(action.payload)];
+    default:
+      return oldState;
+  }
+}
+
 const rootReducer = combineReducers({
   blackjackRulesOpen: blackjackRulesReducer,
   casinoRulesOpen: casinoRulesReducer,
-  roundOver: roundOverReducer,
+  roundStarted: roundReducer,
   playerTurn: playerTurnReducer,
   dealerTurn: dealerTurnReducer,
+  dealerCards: dealerCardsReducer,
+  playerCards: playerCardsReducer,
 })
 
 export default rootReducer;

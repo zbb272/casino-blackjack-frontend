@@ -1,10 +1,11 @@
 import React from 'react';
+import { Segment } from 'semantic-ui-react';
 
 const Card = ( props ) => {
   return (
-    <div>
-      this is a card
-    </div>
+    <Segment>
+      {props.number}
+    </Segment>
   )
 }
 

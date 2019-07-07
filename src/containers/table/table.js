@@ -30,9 +30,11 @@ class Table extends Component {
       this.props.dealPlayerCards();
       this.props.startPlayerTurn();
     } else if(this.props.roundStarted && this.props.playerTurn){
-      console.log("user turn")
+      console.log("user turn");
+    } else if (this.props.roundStarted && this.props.dealerTurn){
+      console.log("dealer turn");
     } else {
-      console.log("game not started")
+      console.log("game not started");
     }
 
     console.log(this.props.dealerCards);

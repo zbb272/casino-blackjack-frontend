@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startRound, startPlayerTurn, playerHit } from '../../redux/actionCreators';
+import { startRound, startPlayerTurn, playerHit, endPlayerTurn, startDealerTurn } from '../../redux/actionCreators';
 
 class Controls extends Component {
   constructor(props){
@@ -13,8 +13,13 @@ class Controls extends Component {
 
   hit = () => {
     console.log("hit");
-
     this.props.playerHit();
+  }
+
+  stay = () => {
+    console.log("stay");
+    this.props.endPlayerTurn();
+    this.props.startDealerTurn();
   }
 
 
@@ -22,10 +27,12 @@ class Controls extends Component {
     let elements = [];
 
     if(this.props.roundStarted && this.props.playerTurn){
-      elements.push( <button key="Phit" onClick={this.hit}>Hit</button> );
-      elements.push( <button key="pStay">Stay</button> );
+      elements.push( <button key="pHit" onClick={this.hit}>Hit</button> );
+      elements.push( <button key="pStay" onClick={this.stay}>Stay</button> );
       elements.push( <button key="pDouble">Double</button> );
       elements.push( <button key="pSplit">Split</button> );
+    } else if(this.props.dealerTurn){
+      elements.push( <button key="pDealer">Dealer Turn Now</button>);
     } else {
       elements.push(
         <button key="startgame" onClick={this.startGame}>Deal</button>
@@ -47,6 +54,8 @@ class Controls extends Component {
     if(total > 21){
       console.log("BUST");
       window.alert("BUST");
+      this.props.endPlayerTurn();
+      this.props.startDealerTurn();
     }
 
     return (
@@ -61,11 +70,15 @@ const mapStateToProps = (store, ownProps) => ({
   roundStarted: store.roundStarted,
   playerTurn: store.playerTurn,
   playerCards: store.playerCards,
+  dealerTurn: store.dealerTurn,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  startRound: ()=>{dispatch( startRound() )},
-  playerHit:  ()=>{dispatch( playerHit()  )},
+  startRound:      ()=>{dispatch( startRound() )},
+  playerHit:       ()=>{dispatch( playerHit()  )},
+  endPlayerTurn:   ()=>{dispatch( endPlayerTurn() )},
+  startDealerTurn: ()=>{dispatch( startDealerTurn() )},
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

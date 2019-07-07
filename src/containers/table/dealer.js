@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import Card from '../../components/card';
 
 const dealerBoxStyle = {
   minHeight: 200,
@@ -17,14 +20,25 @@ const dealerCardBoxStyle = {
 class Dealer extends Component {
 
   render(){
+    let cards = [];
+    if(this.props.dealerCards){
+      for(let i = 0; i < this.props.dealerCards.length; i++){
+        cards.push(<Card key={`D${i}`} number={this.props.dealerCards[i]}/>);
+      }
+    }
+
     return(
       <div className="dealerBox" style={dealerBoxStyle}>
-        <div className="dealerCards" style={dealerCardBoxStyle}>
-          <h4 >Dealer cards go here</h4>
-        </div>
+        <Segment className="dealerCards" style={dealerCardBoxStyle}>
+          {cards}
+        </Segment>
       </div>
     )
   }
 }
 
-export default Dealer;
+const mapStateToProps = (store, ownProps) => ({
+  dealerCards:  store.dealerCards,
+})
+
+export default connect(mapStateToProps)(Dealer);

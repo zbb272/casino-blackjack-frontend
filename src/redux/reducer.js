@@ -3,7 +3,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
-       DEALER_START, DEALER_HIT, PLAYER_START, PLAYER_HIT,
+       DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
       }
        from './actionType';
 
@@ -66,8 +66,14 @@ const dealerCardsReducer = ( oldState = false, action ) => {
   switch(action.type) {
     case DEALER_START:
       return action.payload;
+    case DEALER_REVEAL:
+      let newCards = [...oldState];
+      newCards.splice(0, 1, action.payload);
+      return newCards;
     case DEALER_HIT:
-      return [...oldState.push(action.payload)];
+      let newState = [...oldState];
+      newState.push(action.payload);
+      return newState;
     default:
       return oldState;
   }
@@ -78,9 +84,9 @@ const playerCardsReducer = ( oldState = false, action ) => {
     case PLAYER_START:
       return action.payload;
     case PLAYER_HIT:
-      let newState = [...oldState];
-      newState.push(action.payload);
-      return newState;
+      let newCards = [...oldState];
+      newCards.push(action.payload);
+      return newCards;
     default:
       return oldState;
   }

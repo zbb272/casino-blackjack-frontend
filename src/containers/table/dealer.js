@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { dealerRevealCard } from '../../redux/actionCreators';
 import { Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Card from '../../components/card';
@@ -19,8 +20,25 @@ const dealerCardBoxStyle = {
 
 class Dealer extends Component {
 
+  hit = () => {
+    console.log("dealer hit");
+    this.props.dealerHit();
+  }
+
+  stay = () => {
+    console.log("dealer stay");
+    this.props.endDealerTurn();
+    //end game
+  }
+
   render(){
     let cards = [];
+
+    if(this.props.dealerTurn){
+      let callb = () => {console.log("here")}
+      window.setTimeout(callb, 5000);
+    }
+
     if(this.props.dealerCards){
       for(let i = 0; i < this.props.dealerCards.length; i++){
         cards.push(<Card key={`D${i}`} number={this.props.dealerCards[i]}/>);
@@ -39,6 +57,11 @@ class Dealer extends Component {
 
 const mapStateToProps = (store, ownProps) => ({
   dealerCards:  store.dealerCards,
+  dealerTurn:   store.dealerTurn,
 })
 
-export default connect(mapStateToProps)(Dealer);
+const mapDispatchToProps = (dispatch) => ({
+  dealerRevealCard:      ()=>{dispatch( dealerRevealCard() )},
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dealer);

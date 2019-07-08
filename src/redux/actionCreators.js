@@ -2,7 +2,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
-       DEALER_START, DEALER_HIT, PLAYER_START, PLAYER_HIT,
+       DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
       }
        from './actionType';
 
@@ -53,6 +53,11 @@ function dealDealerCards(){
   return { type: DEALER_START, payload: cards };
 }
 
+function dealerRevealCard(){
+  let card = Math.floor(Math.random() * 13) + 1;
+  return { type: DEALER_REVEAL, payload: card };
+}
+
 function dealerHit(){
   let card = Math.floor(Math.random() * 13) + 1;
   return { type: DEALER_HIT, payload: card };
@@ -75,4 +80,4 @@ export { openBlackjackRules, closeBlackjackRules,
          openCasinoRules, closeCasinoRules,
          startRound, endRound, startPlayerTurn, endPlayerTurn,
          startDealerTurn, endDealerTurn,
-         dealDealerCards, dealerHit, dealPlayerCards, playerHit }
+         dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards, playerHit }

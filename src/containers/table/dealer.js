@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { dealerRevealCard } from '../../redux/actionCreators';
-import { Segment } from 'semantic-ui-react';
+import { Segment, Grid, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Card from '../../components/card';
 
@@ -33,6 +33,7 @@ class Dealer extends Component {
 
   render(){
     let cards = [];
+    let total = 0;
 
     if(this.props.dealerTurn){
       let callb = () => {console.log("here")}
@@ -42,15 +43,32 @@ class Dealer extends Component {
     if(this.props.dealerCards){
       for(let i = 0; i < this.props.dealerCards.length; i++){
         cards.push(<Card key={`D${i}`} number={this.props.dealerCards[i]}/>);
+        if(this.props.dealerCards[i] > 10){
+          total += 10;
+        } else if (this.props.dealerCards[i] >= 1){
+          total += this.props.dealerCards[i];
+        }
       }
     }
 
     return(
-      <div className="dealerBox" style={dealerBoxStyle}>
-        <Segment className="dealerCards" style={dealerCardBoxStyle}>
-          {cards}
-        </Segment>
-      </div>
+      <Container className="dealerBox" style={dealerBoxStyle}>
+        <Grid columns='equal'>
+         <Grid.Column>
+           <Segment>
+            Total: {total}
+           </Segment>
+         </Grid.Column>
+         <Grid.Column width={8}>
+           <Segment className="dealerCards" style={dealerCardBoxStyle}>
+            {cards}
+           </Segment>
+         </Grid.Column>
+         <Grid.Column>
+           <Segment>Player Info</Segment>
+         </Grid.Column>
+       </Grid>
+      </Container>
     )
   }
 }

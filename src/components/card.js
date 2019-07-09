@@ -1,5 +1,4 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
 
 
 const Card = ( props ) => {
@@ -31,7 +30,7 @@ const Card = ( props ) => {
   cardNum !== -1 ? imageURL = `/images/${getNumber(cardNum)}${cardSuite}.png` : imageURL = "/images/playing_card_back.png";
 
   return (
-    <img src={imageURL} style={cardStyle}/>
+    <img src={imageURL} alt={props.card} style={cardStyle}/>
   )
 }
 

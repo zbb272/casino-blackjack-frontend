@@ -4,9 +4,6 @@ import { startRound, playerHit, endPlayerTurn, dealerRevealCard,
    startDealerTurn, setCurrenBet } from '../../redux/actionCreators';
 
 class Controls extends Component {
-  constructor(props){
-    super(props);
-  }
 
   startGame = () => {
     this.props.startRound();

@@ -96,9 +96,6 @@ class Table extends Component {
       console.log("game not started");
     }
 
-    console.log(this.props.dealerCards);
-    console.log(this.props.playerCards);
-
     return (
       <Container style={tableContainerStyle} className="Table">
         <Dealer cardTotal={dealerTotal}/>

@@ -35,7 +35,6 @@ class Dealer extends Component {
 
   render(){
     let cards = [];
-    let total = 0;
 
     if(this.props.dealerCards){
       for(let i = 0; i < this.props.dealerCards.length; i++){
@@ -45,8 +44,6 @@ class Dealer extends Component {
 
     if(this.props.dealerTurn){
       let callb = () => {console.log("here")}
-      console.log("dealertotal:")
-      console.log(this.props.cardTotal)
       if(this.props.cardTotal > 21){
         console.log("dealer bust, end game")
         this.props.startPayout();

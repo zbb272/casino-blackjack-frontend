@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { dealerRevealCard } from '../../redux/actionCreators';
+import { dealerRevealCard, dealerHit, endDealerTurn, startPayout, } from '../../redux/actionCreators';
 import { Segment, Grid, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Card from '../../components/card';
@@ -27,7 +27,9 @@ class Dealer extends Component {
 
   stay = () => {
     console.log("dealer stay");
+    this.props.startPayout();
     this.props.endDealerTurn();
+
     //end game
   }
 
@@ -43,13 +45,16 @@ class Dealer extends Component {
 
     if(this.props.dealerTurn){
       let callb = () => {console.log("here")}
-
+      console.log("dealertotal:")
+      console.log(this.props.cardTotal)
       if(this.props.cardTotal > 21){
         console.log("dealer bust, end game")
       } else if (this.props.cardTotal >= 17){
         console.log("dealer stay, end game")
+        window.setTimeout(this.stay, 1000);
       } else {
         console.log("wait time, dealer hit")
+        window.setTimeout(this.hit, 1000);
       }
 
       window.setTimeout(callb, 1000);
@@ -84,6 +89,9 @@ const mapStateToProps = (store, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dealerRevealCard:      ()=>{dispatch( dealerRevealCard() )},
+  dealerHit:             ()=>{dispatch( dealerHit() )},
+  endDealerTurn:         ()=>{dispatch( endDealerTurn() )},
+  startPayout:           ()=>{dispatch( startPayout() )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dealer);

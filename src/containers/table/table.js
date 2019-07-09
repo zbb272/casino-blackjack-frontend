@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { dealDealerCards, dealPlayerCards, startPlayerTurn,
-   endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips, } from '../../redux/actionCreators';
+   endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips,
+   endPayout, endRound, } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -49,11 +50,20 @@ class Table extends Component {
     return total;
   }
 
+  endPayoutStartNewRound = () => {
+    this.props.endRound();
+    this.props.endPayout();
+    console.log(this.props.roundStarted)
+    console.log(this.props.playerTurn)
+    console.log(this.props.dealerTurn)
+    console.log(this.props.payout)
+  }
+
   render(){
     let playerTotal = this.calculateTotal(this.props.playerCards);
     let dealerTotal = this.calculateTotal(this.props.dealerCards);
 
-    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn){
+    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.payout){
       console.log("game started")
       this.props.dealDealerCards();
       this.props.dealPlayerCards();
@@ -70,6 +80,7 @@ class Table extends Component {
       console.log("dealer turn");
     } else if (this.props.roundStarted && this.props.payout){
       console.log("payout")
+      window.setTimeout(this.endPayoutStartNewRound, 5000);
     } else {
       console.log("game not started");
     }
@@ -104,6 +115,8 @@ const mapDispatchToProps = (dispatch) => ({
   startDealerTurn: ()=>{dispatch( startDealerTurn() )},
   dealerRevealCard:()=>{dispatch( dealerRevealCard())},
   setPlayerChips:(amount)=>{dispatch( setPlayerChips(amount)  )},
+  endPayout:       ()=>{dispatch( endPayout() )},
+  endRound:        ()=>{dispatch( endRound()  )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

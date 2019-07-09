@@ -95,4 +95,4 @@ export { openBlackjackRules, closeBlackjackRules,
          startRound, endRound, startPlayerTurn, endPlayerTurn,
          startDealerTurn, endDealerTurn,
          dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
-         playerHit, setPlayerChips, }
+         playerHit, setPlayerChips, startPayout, endPayout, }

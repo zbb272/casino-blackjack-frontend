@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startRound, playerHit, dealerRevealCard } from '../../redux/actionCreators';
+import { startRound, playerHit, endPlayerTurn, dealerRevealCard, startDealerTurn } from '../../redux/actionCreators';
 
 class Controls extends Component {
   constructor(props){
@@ -60,6 +60,8 @@ const mapDispatchToProps = (dispatch) => ({
   startRound:      ()=>{dispatch( startRound() )},
   playerHit:       ()=>{dispatch( playerHit()  )},
   dealerRevealCard:      ()=>{dispatch( dealerRevealCard() )},
+  endPlayerTurn:   ()=>{dispatch( endPlayerTurn() )},
+  startDealerTurn: ()=>{dispatch( startDealerTurn() )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

@@ -20,38 +20,18 @@ class Table extends Component {
     super(props)
   }
 
-
-
-  render(){
-
-    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn){
-      console.log("game started")
-      this.props.dealDealerCards();
-      this.props.dealPlayerCards();
-      this.props.startPlayerTurn();
-    } else if(this.props.roundStarted && this.props.playerTurn){
-      console.log("user turn");
-    } else if (this.props.roundStarted && this.props.dealerTurn){
-      console.log("dealer turn");
-    } else {
-      console.log("game not started");
-    }
-
-    console.log(this.props.dealerCards);
-    console.log(this.props.playerCards);
-
-
+  calculateTotal = (cards) => {
     let total = 0;
     let aces = [];
-    if(this.props.playerCards){
-      for(let i = 0; i < this.props.playerCards.length; i++){
-        if(this.props.playerCards[i] === 14){
+    if(cards){
+      for(let i = 0; i < cards.length; i++){
+        if(cards[i] === 14){
           aces.push(14);
         }
-        else if(this.props.playerCards[i] > 10){
+        else if(cards[i] > 10){
           total += 10;
-        } else{
-          total += this.props.playerCards[i];
+        } else if(cards[i] > 1){
+          total += cards[i];
         }
       }
       if(aces.length > 0){
@@ -64,18 +44,41 @@ class Table extends Component {
         }
       }
     }
-    console.log(total)
-    if(total > 21 && this.props.playerTurn){
-      console.log("BUST");
-      this.props.endPlayerTurn();
-      this.props.startDealerTurn();
-      this.props.dealerRevealCard();
+    return total;
+  }
+
+  render(){
+    let playerTotal = this.calculateTotal(this.props.playerCards);
+    let dealerTotal = this.calculateTotal(this.props.dealerCards);
+
+    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn){
+      console.log("game started")
+      this.props.dealDealerCards();
+      this.props.dealPlayerCards();
+      this.props.startPlayerTurn();
+    } else if(this.props.roundStarted && this.props.playerTurn){
+      console.log("user turn");
+      if(playerTotal > 21){
+        console.log("BUST");
+        this.props.endPlayerTurn();
+        this.props.startDealerTurn();
+        this.props.dealerRevealCard();
+      }
+    } else if (this.props.roundStarted && this.props.dealerTurn){
+      console.log("dealer turn");
+    } else if (this.props.roundStarted && this.props.payout){
+      console.log("payout")
+    } else {
+      console.log("game not started");
     }
+
+    console.log(this.props.dealerCards);
+    console.log(this.props.playerCards);
 
     return (
       <Container style={tableContainerStyle} className="Table">
-        <Dealer/>
-        <Player cardTotal={total} />
+        <Dealer cardTotal={dealerTotal}/>
+        <Player cardTotal={playerTotal} />
         <Controls/>
       </Container>
     )
@@ -88,6 +91,7 @@ const mapStateToProps = (store, ownProps) => ({
   dealerTurn:   store.dealerTurn,
   dealerCards:  store.dealerCards,
   playerCards:  store.playerCards,
+  payout:       store.payout,
 })
 
 const mapDispatchToProps = (dispatch) => ({

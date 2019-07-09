@@ -38,20 +38,15 @@ class Dealer extends Component {
     if(this.props.dealerCards){
       for(let i = 0; i < this.props.dealerCards.length; i++){
         cards.push(<Card key={`D${i}`} number={this.props.dealerCards[i]}/>);
-        if(this.props.dealerCards[i] > 10){
-          total += 10;
-        } else if (this.props.dealerCards[i] >= 1){
-          total += this.props.dealerCards[i];
-        }
       }
     }
 
     if(this.props.dealerTurn){
       let callb = () => {console.log("here")}
 
-      if(total > 21){
+      if(this.props.cardTotal > 21){
         console.log("dealer bust, end game")
-      } else if (total >= 17){
+      } else if (this.props.cardTotal >= 17){
         console.log("dealer stay, end game")
       } else {
         console.log("wait time, dealer hit")
@@ -65,7 +60,7 @@ class Dealer extends Component {
         <Grid columns='equal'>
          <Grid.Column>
            <Segment>
-            Total: {total}
+            Total: {this.props.cardTotal}
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>

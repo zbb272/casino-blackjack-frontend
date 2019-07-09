@@ -1,5 +1,6 @@
 import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED,
+       PAYOUT_STARTED, PAYOUT_FINISHED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
@@ -44,6 +45,14 @@ function startDealerTurn(){
 
 function endDealerTurn(){
   return { type: DEALER_TURN_FINISHED };
+}
+
+function startPayout(){
+  return { type: PAYOUT_STARTED };
+}
+
+function endPayout(){
+  return { type: PAYOUT_FINISHED };
 }
 
 function dealDealerCards(){

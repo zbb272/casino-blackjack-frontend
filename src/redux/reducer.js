@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED,
+       PAYOUT_STARTED, PAYOUT_FINISHED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
@@ -35,6 +36,17 @@ const roundReducer = ( oldState = false, action ) => {
       return false;
     case ROUND_STARTED:
       return true;
+    default:
+      return oldState;
+  }
+}
+
+const payoutReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case PAYOUT_STARTED:
+      return true;
+    case PAYOUT_FINISHED:
+      return false;
     default:
       return oldState;
   }
@@ -96,6 +108,7 @@ const rootReducer = combineReducers({
   blackjackRulesOpen: blackjackRulesReducer,
   casinoRulesOpen: casinoRulesReducer,
   roundStarted: roundReducer,
+  payout: payoutReducer,
   playerTurn: playerTurnReducer,
   dealerTurn: dealerTurnReducer,
   dealerCards: dealerCardsReducer,

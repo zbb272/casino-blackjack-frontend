@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startRound, playerHit, endPlayerTurn, startDealerTurn, dealerRevealCard } from '../../redux/actionCreators';
+import { startRound, playerHit, dealerRevealCard } from '../../redux/actionCreators';
 
 class Controls extends Component {
   constructor(props){
@@ -40,24 +40,6 @@ class Controls extends Component {
       )
     }
 
-    let total = 0;
-    if(this.props.playerCards){
-      this.props.playerCards.forEach(num => {
-        if(num > 10){
-          total += 10;
-        } else{
-          total += num;
-        }
-      })
-      console.log("total")
-      console.log(total)
-    }
-    if(total > 21){
-      console.log("BUST");
-      window.alert("BUST");
-      this.props.endPlayerTurn();
-      this.props.startDealerTurn();
-    }
 
     return (
       <div>
@@ -77,8 +59,6 @@ const mapStateToProps = (store, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   startRound:      ()=>{dispatch( startRound() )},
   playerHit:       ()=>{dispatch( playerHit()  )},
-  endPlayerTurn:   ()=>{dispatch( endPlayerTurn() )},
-  startDealerTurn: ()=>{dispatch( startDealerTurn() )},
   dealerRevealCard:      ()=>{dispatch( dealerRevealCard() )},
 })
 

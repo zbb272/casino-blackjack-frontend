@@ -13,15 +13,9 @@ class Player extends Component {
 
   render(){
     let cards = [];
-    let total = 0;
     if(this.props.playerCards){
       for(let i = 0; i < this.props.playerCards.length; i++){
         cards.push(<Card key={`P${i}`} number={this.props.playerCards[i]}/>);
-        if(this.props.playerCards[i] > 10){
-          total += 10;
-        } else{
-          total += this.props.playerCards[i];
-        }
       }
     }
 
@@ -30,7 +24,7 @@ class Player extends Component {
         <Grid columns='equal'>
          <Grid.Column>
            <Segment>
-            Total: {total}
+            Total: {this.props.cardTotal}
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>

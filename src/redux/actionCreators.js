@@ -49,30 +49,30 @@ function endDealerTurn(){
 function dealDealerCards(){
   let cards = [];
   cards.push(-1);
-  cards.push(Math.floor(Math.random() * 13) + 1);
+  cards.push(Math.floor(Math.random() * 13) + 2);
   return { type: DEALER_START, payload: cards };
 }
 
 function dealerRevealCard(){
-  let card = Math.floor(Math.random() * 13) + 1;
+  let card = Math.floor(Math.random() * 13) + 2;
   return { type: DEALER_REVEAL, payload: card };
 }
 
 function dealerHit(){
-  let card = Math.floor(Math.random() * 13) + 1;
+  let card = Math.floor(Math.random() * 13) + 2;
   return { type: DEALER_HIT, payload: card };
 }
 
 function dealPlayerCards(){
   let cards = [];
-  cards.push(Math.floor(Math.random() * 13) + 1);
-  cards.push(Math.floor(Math.random() * 13) + 1);
+  cards.push(Math.floor(Math.random() * 13) + 2);
+  cards.push(Math.floor(Math.random() * 13) + 2);
 
   return { type: PLAYER_START, payload: cards };
 }
 
 function playerHit(){
-  let card = Math.floor(Math.random() * 13) + 1;
+  let card = Math.floor(Math.random() * 13) + 2;
   return { type: PLAYER_HIT, payload: card };
 }
 

@@ -35,11 +35,6 @@ class Dealer extends Component {
     let cards = [];
     let total = 0;
 
-    if(this.props.dealerTurn){
-      let callb = () => {console.log("here")}
-      window.setTimeout(callb, 5000);
-    }
-
     if(this.props.dealerCards){
       for(let i = 0; i < this.props.dealerCards.length; i++){
         cards.push(<Card key={`D${i}`} number={this.props.dealerCards[i]}/>);
@@ -49,6 +44,20 @@ class Dealer extends Component {
           total += this.props.dealerCards[i];
         }
       }
+    }
+
+    if(this.props.dealerTurn){
+      let callb = () => {console.log("here")}
+
+      if(total > 21){
+        console.log("dealer bust, end game")
+      } else if (total >= 17){
+        console.log("dealer stay, end game")
+      } else {
+        console.log("wait time, dealer hit")
+      }
+
+      window.setTimeout(callb, 1000);
     }
 
     return(
@@ -65,7 +74,7 @@ class Dealer extends Component {
            </Segment>
          </Grid.Column>
          <Grid.Column>
-           <Segment>Player Info</Segment>
+           <Segment>Dealer Info</Segment>
          </Grid.Column>
        </Grid>
       </Container>

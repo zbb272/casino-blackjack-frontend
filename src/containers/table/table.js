@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { dealDealerCards, dealPlayerCards, startPlayerTurn } from '../../redux/actionCreators';
+import { dealDealerCards, dealPlayerCards, startPlayerTurn, endPlayerTurn, startDealerTurn } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -40,10 +40,41 @@ class Table extends Component {
     console.log(this.props.dealerCards);
     console.log(this.props.playerCards);
 
+
+    let total = 0;
+    let aces = [];
+    if(this.props.playerCards){
+      for(let i = 0; i < this.props.playerCards.length; i++){
+        if(this.props.playerCards[i] === 14){
+          aces.push(14);
+        }
+        else if(this.props.playerCards[i] > 10){
+          total += 10;
+        } else{
+          total += this.props.playerCards[i];
+        }
+      }
+      if(aces.length > 0){
+        for(let i = 0; i < aces.length; i++){
+          if((total + 11) > 21){
+            total += 1;
+          } else {
+            total += 11;
+          }
+        }
+      }
+    }
+    console.log(total)
+    if(total > 21){
+      console.log("BUST");
+      this.props.endPlayerTurn();
+      this.props.startDealerTurn();
+    }
+
     return (
       <Container style={tableContainerStyle} className="Table">
         <Dealer/>
-        <Player/>
+        <Player cardTotal={total} />
         <Controls/>
       </Container>
     )
@@ -62,6 +93,8 @@ const mapDispatchToProps = (dispatch) => ({
   dealDealerCards: ()=>{dispatch( dealDealerCards() )},
   dealPlayerCards: ()=>{dispatch( dealPlayerCards() )},
   startPlayerTurn: ()=>{dispatch( startPlayerTurn() )},
+  endPlayerTurn:   ()=>{dispatch( endPlayerTurn()   )},
+  startDealerTurn: ()=>{dispatch( startDealerTurn() )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

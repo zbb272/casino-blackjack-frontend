@@ -4,7 +4,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
-       SET_PLAYER_CHIPS,
+       SET_PLAYER_CHIPS, SET_CURRENT_BET,
       }
        from './actionType';
 
@@ -90,9 +90,13 @@ function setPlayerChips(amount){
   return { type: SET_PLAYER_CHIPS, payload: amount };
 }
 
+function setCurrenBet(amount){
+  return { type: SET_CURRENT_BET, payload: amount };
+}
+
 export { openBlackjackRules, closeBlackjackRules,
          openCasinoRules, closeCasinoRules,
          startRound, endRound, startPlayerTurn, endPlayerTurn,
          startDealerTurn, endDealerTurn,
          dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
-         playerHit, setPlayerChips, startPayout, endPayout, }
+         playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet, }

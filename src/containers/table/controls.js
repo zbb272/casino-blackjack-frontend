@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startRound, playerHit, endPlayerTurn, dealerRevealCard, startDealerTurn } from '../../redux/actionCreators';
+import { startRound, playerHit, endPlayerTurn, dealerRevealCard,
+   startDealerTurn, setCurrenBet } from '../../redux/actionCreators';
 
 class Controls extends Component {
   constructor(props){
@@ -9,6 +10,18 @@ class Controls extends Component {
 
   startGame = () => {
     this.props.startRound();
+  }
+
+  lowerBet = () => {
+    let newBet = this.props.playerBet - 10;
+    newBet < 10 ? newBet = 10 : newBet = newBet;
+    this.props.setCurrenBet(newBet);
+  }
+
+  raiseBet = () => {
+    let newBet = this.props.playerBet + 10;
+    newBet > this.props.playerChips ? newBet = this.props.playerChips : newBet = newBet;
+    this.props.setCurrenBet(newBet);
   }
 
   hit = () => {
@@ -35,9 +48,9 @@ class Controls extends Component {
     } else if(this.props.dealerTurn){
       elements.push( <button key="pDealer">Dealer Turn Now</button>);
     } else {
-      elements.push(
-        <button key="startgame" onClick={this.startGame}>Deal</button>
-      )
+      elements.push(<button key="lowerBet"  onClick={this.lowerBet}>Lower Bet</button>);
+      elements.push(<button key="raiseBet"  onClick={this.raiseBet}>Raise Bet</button>);
+      elements.push(<button key="startgame" onClick={this.startGame}>Deal</button>);
     }
 
 
@@ -51,17 +64,20 @@ class Controls extends Component {
 
 const mapStateToProps = (store, ownProps) => ({
   roundStarted: store.roundStarted,
-  playerTurn: store.playerTurn,
-  playerCards: store.playerCards,
-  dealerTurn: store.dealerTurn,
+  playerTurn:   store.playerTurn,
+  playerCards:  store.playerCards,
+  dealerTurn:   store.dealerTurn,
+  playerBet:    store.playerBet,
+  playerChips:  store.playerChips,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  startRound:      ()=>{dispatch( startRound() )},
-  playerHit:       ()=>{dispatch( playerHit()  )},
-  dealerRevealCard:      ()=>{dispatch( dealerRevealCard() )},
-  endPlayerTurn:   ()=>{dispatch( endPlayerTurn() )},
-  startDealerTurn: ()=>{dispatch( startDealerTurn() )},
+  startRound:      ()=>{dispatch( startRound()       )},
+  playerHit:       ()=>{dispatch( playerHit()        )},
+  dealerRevealCard:()=>{dispatch( dealerRevealCard() )},
+  endPlayerTurn:   ()=>{dispatch( endPlayerTurn()    )},
+  startDealerTurn: ()=>{dispatch( startDealerTurn()  )},
+  setCurrenBet:    (amount)=>{dispatch( setCurrenBet(amount))}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

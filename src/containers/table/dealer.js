@@ -49,6 +49,8 @@ class Dealer extends Component {
       console.log(this.props.cardTotal)
       if(this.props.cardTotal > 21){
         console.log("dealer bust, end game")
+        this.props.startPayout();
+        this.props.endDealerTurn();
       } else if (this.props.cardTotal >= 17){
         console.log("dealer stay, end game")
         window.setTimeout(this.stay, 1000);

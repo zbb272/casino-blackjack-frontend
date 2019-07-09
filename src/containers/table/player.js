@@ -25,7 +25,8 @@ class Player extends Component {
         <Grid columns='equal'>
          <Grid.Column>
            <Segment>
-            Card Total: {this.props.cardTotal}
+             <div>Card Total: {this.props.cardTotal}</div>
+             <div>Current Bet: {this.props.playerBet}</div>
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
@@ -45,6 +46,7 @@ class Player extends Component {
 const mapStateToProps = (store, ownProps) => ({
   playerCards:  store.playerCards,
   playerChips:  store.playerChips,
+  playerBet:    store.playerBet,
 })
 
 export default connect(mapStateToProps)(Player);

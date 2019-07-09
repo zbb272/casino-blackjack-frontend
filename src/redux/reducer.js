@@ -5,7 +5,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
-       SET_PLAYER_CHIPS,
+       SET_PLAYER_CHIPS, SET_CURRENT_BET,
       }
        from './actionType';
 
@@ -114,6 +114,15 @@ const playerChipsReducer = ( oldState = false, action ) => {
   }
 }
 
+const playerBetReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case SET_CURRENT_BET:
+      return action.payload;
+    default:
+      return oldState;
+  }
+}
+
 const rootReducer = combineReducers({
   blackjackRulesOpen: blackjackRulesReducer,
   casinoRulesOpen: casinoRulesReducer,
@@ -124,6 +133,7 @@ const rootReducer = combineReducers({
   dealerCards: dealerCardsReducer,
   playerCards: playerCardsReducer,
   playerChips: playerChipsReducer,
+  playerBet: playerBetReducer,
 })
 
 export default rootReducer;

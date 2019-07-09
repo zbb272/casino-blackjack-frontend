@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { dealDealerCards, dealPlayerCards, startPlayerTurn,
    endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips,
-   endPayout, endRound, } from '../../redux/actionCreators';
+   endPayout, endRound, setCurrenBet, } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -20,7 +20,8 @@ const tableContainerStyle = {
 class Table extends Component {
   constructor(props){
     super(props);
-    props.setPlayerChips(100)
+    props.setPlayerChips(100);
+    props.setCurrenBet(10);
   }
 
   calculateTotal = (cards) => {
@@ -51,12 +52,19 @@ class Table extends Component {
   }
 
   endPayoutStartNewRound = () => {
+    let playerTotal = this.calculateTotal(this.props.playerCards);
+    let dealerTotal = this.calculateTotal(this.props.dealerCards);
+    if(playerTotal > 21){
+      this.props.setPlayerChips(this.props.playerChips - this.props.playerBet)
+    } else if(dealerTotal > 21){
+      this.props.setPlayerChips(this.props.playerChips + this.props.playerBet)
+    } else if (playerTotal > dealerTotal){
+      this.props.setPlayerChips(this.props.playerChips + this.props.playerBet)
+    } else if (dealerTotal > playerTotal){
+      this.props.setPlayerChips(this.props.playerChips - this.props.playerBet)
+    }
     this.props.endRound();
     this.props.endPayout();
-    console.log(this.props.roundStarted)
-    console.log(this.props.playerTurn)
-    console.log(this.props.dealerTurn)
-    console.log(this.props.payout)
   }
 
   render(){
@@ -80,7 +88,8 @@ class Table extends Component {
       console.log("dealer turn");
     } else if (this.props.roundStarted && this.props.payout){
       console.log("payout")
-      window.setTimeout(this.endPayoutStartNewRound, 5000);
+      this.endPayoutStartNewRound();
+      //window.setTimeout(this.endPayoutStartNewRound, 1000);
     } else {
       console.log("game not started");
     }
@@ -105,6 +114,8 @@ const mapStateToProps = (store, ownProps) => ({
   dealerCards:  store.dealerCards,
   playerCards:  store.playerCards,
   payout:       store.payout,
+  playerChips:  store.playerChips,
+  playerBet:    store.playerBet,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -115,6 +126,7 @@ const mapDispatchToProps = (dispatch) => ({
   startDealerTurn: ()=>{dispatch( startDealerTurn() )},
   dealerRevealCard:()=>{dispatch( dealerRevealCard())},
   setPlayerChips:(amount)=>{dispatch( setPlayerChips(amount)  )},
+  setCurrenBet:  (amount)=>{dispatch( setCurrenBet(amount)    )},
   endPayout:       ()=>{dispatch( endPayout() )},
   endRound:        ()=>{dispatch( endRound()  )},
 })

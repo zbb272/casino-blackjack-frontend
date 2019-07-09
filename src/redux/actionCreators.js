@@ -56,33 +56,49 @@ function endPayout(){
   return { type: PAYOUT_FINISHED };
 }
 
+function getSuite(){
+  let suiteNum = Math.floor(Math.random() * 3);
+  switch(suiteNum){
+    case 0:
+      return "C";
+    case 1:
+      return "D";
+    case 2:
+      return "H";
+    case 3:
+      return "S";
+    default:
+      return "S";
+  }
+}
+
 function dealDealerCards(){
   let cards = [];
-  cards.push(-1);
-  cards.push(Math.floor(Math.random() * 13) + 2);
+  cards.push("A-1");
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
   return { type: DEALER_START, payload: cards };
 }
 
 function dealerRevealCard(){
-  let card = Math.floor(Math.random() * 13) + 2;
+  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
   return { type: DEALER_REVEAL, payload: card };
 }
 
 function dealerHit(){
-  let card = Math.floor(Math.random() * 13) + 2;
+  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
   return { type: DEALER_HIT, payload: card };
 }
 
 function dealPlayerCards(){
   let cards = [];
-  cards.push(Math.floor(Math.random() * 13) + 2);
-  cards.push(Math.floor(Math.random() * 13) + 2);
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
 
   return { type: PLAYER_START, payload: cards };
 }
 
 function playerHit(){
-  let card = Math.floor(Math.random() * 13) + 2;
+  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
   return { type: PLAYER_HIT, payload: card };
 }
 

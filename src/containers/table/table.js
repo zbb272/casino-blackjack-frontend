@@ -29,13 +29,15 @@ class Table extends Component {
     let aces = [];
     if(cards){
       for(let i = 0; i < cards.length; i++){
-        if(cards[i] === 14){
+        let card = cards[i];
+        let cardNum = parseInt(card.slice(1));
+        if(cardNum === 14){
           aces.push(14);
         }
-        else if(cards[i] > 10){
+        else if(cardNum > 10){
           total += 10;
-        } else if(cards[i] > 1){
-          total += cards[i];
+        } else if(cardNum > 1){
+          total += cardNum;
         }
       }
       if(aces.length > 0){

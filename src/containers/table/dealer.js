@@ -11,7 +11,7 @@ const dealerBoxStyle = {
 
 const dealerCardBoxStyle = {
   position: "absolute",
-  left: "50%",
+  left: "30%",
   marginLeft: "-75px",
   marginTop: 100,
   minHeight: 60,
@@ -39,7 +39,7 @@ class Dealer extends Component {
 
     if(this.props.dealerCards){
       for(let i = 0; i < this.props.dealerCards.length; i++){
-        cards.push(<Card key={`D${i}`} number={this.props.dealerCards[i]}/>);
+        cards.push(<Card key={`D${i}`} position={i} card={this.props.dealerCards[i]}/>);
       }
     }
 
@@ -71,9 +71,9 @@ class Dealer extends Component {
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
-           <Segment className="dealerCards" style={dealerCardBoxStyle}>
+           <div className="dealerCards" style={dealerCardBoxStyle}>
             {cards}
-           </Segment>
+           </div>
          </Grid.Column>
          <Grid.Column>
            <Segment>Dealer Info</Segment>

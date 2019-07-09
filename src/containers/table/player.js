@@ -16,7 +16,7 @@ class Player extends Component {
     let cards = [];
     if(this.props.playerCards){
       for(let i = 0; i < this.props.playerCards.length; i++){
-        cards.push(<Card key={`P${i}`} number={this.props.playerCards[i]}/>);
+        cards.push(<Card key={`P${i}`} position={i} card={this.props.playerCards[i]}/>);
       }
     }
 
@@ -30,9 +30,9 @@ class Player extends Component {
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
-           <Segment>
+           <div style={{marginLeft: "-30%"}}>
             {cards}
-           </Segment>
+           </div>
          </Grid.Column>
          <Grid.Column>
            <PlayerInformation chipTotal={this.props.playerChips}/>

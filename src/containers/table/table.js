@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { dealDealerCards, dealPlayerCards, startPlayerTurn, endPlayerTurn, startDealerTurn } from '../../redux/actionCreators';
+import { dealDealerCards, dealPlayerCards, startPlayerTurn, endPlayerTurn, startDealerTurn, dealerRevealCard } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -65,10 +65,11 @@ class Table extends Component {
       }
     }
     console.log(total)
-    if(total > 21){
+    if(total > 21 && this.props.playerTurn){
       console.log("BUST");
       this.props.endPlayerTurn();
       this.props.startDealerTurn();
+      this.props.dealerRevealCard();
     }
 
     return (
@@ -95,6 +96,7 @@ const mapDispatchToProps = (dispatch) => ({
   startPlayerTurn: ()=>{dispatch( startPlayerTurn() )},
   endPlayerTurn:   ()=>{dispatch( endPlayerTurn()   )},
   startDealerTurn: ()=>{dispatch( startDealerTurn() )},
+  dealerRevealCard:()=>{dispatch( dealerRevealCard())},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

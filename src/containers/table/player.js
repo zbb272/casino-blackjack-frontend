@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Segment, Container } from 'semantic-ui-react';
 import Card from '../../components/card';
+import PlayerInformation from '../../components/playerInformation';
 
 const playerBoxStyle = {
   minHeight: 200,
@@ -24,7 +25,7 @@ class Player extends Component {
         <Grid columns='equal'>
          <Grid.Column>
            <Segment>
-            Total: {this.props.cardTotal}
+            Card Total: {this.props.cardTotal}
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
@@ -33,7 +34,7 @@ class Player extends Component {
            </Segment>
          </Grid.Column>
          <Grid.Column>
-           <Segment>Player Info</Segment>
+           <PlayerInformation chipTotal={this.props.playerChips}/>
          </Grid.Column>
        </Grid>
       </Container>
@@ -43,6 +44,7 @@ class Player extends Component {
 
 const mapStateToProps = (store, ownProps) => ({
   playerCards:  store.playerCards,
+  playerChips:  store.playerChips,
 })
 
 export default connect(mapStateToProps)(Player);

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { dealDealerCards, dealPlayerCards, startPlayerTurn, endPlayerTurn, startDealerTurn, dealerRevealCard } from '../../redux/actionCreators';
+import { dealDealerCards, dealPlayerCards, startPlayerTurn,
+   endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips, } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -17,7 +18,8 @@ const tableContainerStyle = {
 
 class Table extends Component {
   constructor(props){
-    super(props)
+    super(props);
+    props.setPlayerChips(100)
   }
 
   calculateTotal = (cards) => {
@@ -101,6 +103,7 @@ const mapDispatchToProps = (dispatch) => ({
   endPlayerTurn:   ()=>{dispatch( endPlayerTurn()   )},
   startDealerTurn: ()=>{dispatch( startDealerTurn() )},
   dealerRevealCard:()=>{dispatch( dealerRevealCard())},
+  setPlayerChips:(amount)=>{dispatch( setPlayerChips(amount)  )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

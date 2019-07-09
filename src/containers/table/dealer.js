@@ -60,7 +60,7 @@ class Dealer extends Component {
         <Grid columns='equal'>
          <Grid.Column>
            <Segment>
-            Total: {this.props.cardTotal}
+            Card Total: {this.props.cardTotal}
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>

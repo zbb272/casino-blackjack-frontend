@@ -4,6 +4,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
+       SET_PLAYER_CHIPS,
       }
        from './actionType';
 
@@ -85,8 +86,13 @@ function playerHit(){
   return { type: PLAYER_HIT, payload: card };
 }
 
+function setPlayerChips(amount){
+  return { type: SET_PLAYER_CHIPS, payload: amount };
+}
+
 export { openBlackjackRules, closeBlackjackRules,
          openCasinoRules, closeCasinoRules,
          startRound, endRound, startPlayerTurn, endPlayerTurn,
          startDealerTurn, endDealerTurn,
-         dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards, playerHit }
+         dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
+         playerHit, setPlayerChips, }

@@ -125,15 +125,24 @@ const playerBetReducer = ( oldState = false, action ) => {
 }
 
 const computerPlayersReducer = ( oldState = [], action ) => {
+  let updatedPlayers = [...oldState];
   switch(action.type) {
     case COMP_ONE_START:
-      return action.payload;
+      updatedPlayers.push(action.payload);
+      return updatedPlayers;
     case COMP_TWO_START:
-      return action.payload;
+      updatedPlayers.push(action.payload);
+      return updatedPlayers;
     case COMP_ONE_HIT:
-      return action.payload;
+      let newPlayerOneCards = [...oldState[0]];
+      newPlayerOneCards.push(action.payload);
+      updatedPlayers[0] = newPlayerOneCards;
+      return updatedPlayers;
     case COMP_TWO_HIT:
-      return action.payload;
+      let newPlayerTwoCards = [...oldState[0]];
+      newPlayerTwoCards.push(action.payload);
+      updatedPlayers[0] = newPlayerTwoCards;
+      return updatedPlayers;
     default:
       return oldState;
   }

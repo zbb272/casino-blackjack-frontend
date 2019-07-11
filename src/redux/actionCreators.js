@@ -5,6 +5,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
+       COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
       }
        from './actionType';
 
@@ -110,9 +111,34 @@ function setCurrenBet(amount){
   return { type: SET_CURRENT_BET, payload: amount };
 }
 
+function dealCompOne(){
+  let cards = [];
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  return { type: COMP_ONE_START, payload: cards };
+}
+
+function dealCompTwo(){
+  let cards = [];
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  return { type: COMP_TWO_START, payload: cards };
+}
+
+function compOneHit(){
+  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
+  return { type: COMP_ONE_HIT, payload: card };
+}
+
+function compTwoHit(){
+  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
+  return { type: COMP_TWO_HIT, payload: card };
+}
+
 export { openBlackjackRules, closeBlackjackRules,
          openCasinoRules, closeCasinoRules,
          startRound, endRound, startPlayerTurn, endPlayerTurn,
          startDealerTurn, endDealerTurn,
          dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
-         playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet, }
+         playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet,
+         dealCompOne, dealCompTwo, compOneHit, compTwoHit, }

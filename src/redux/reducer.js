@@ -151,6 +151,7 @@ const computerPlayersReducer = ( oldState = [], action ) => {
   let updatedPlayers = [...oldState];
   switch(action.type) {
     case COMP_ONE_START:
+      updatedPlayers = [];
       updatedPlayers.push(action.payload);
       return updatedPlayers;
     case COMP_TWO_START:
@@ -162,7 +163,7 @@ const computerPlayersReducer = ( oldState = [], action ) => {
       updatedPlayers[0] = newPlayerOneCards;
       return updatedPlayers;
     case COMP_TWO_HIT:
-      let newPlayerTwoCards = [...oldState[0]];
+      let newPlayerTwoCards = [...oldState[1]];
       newPlayerTwoCards.push(action.payload);
       updatedPlayers[0] = newPlayerTwoCards;
       return updatedPlayers;

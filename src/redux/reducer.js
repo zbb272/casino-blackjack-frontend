@@ -165,7 +165,7 @@ const computerPlayersReducer = ( oldState = [], action ) => {
     case COMP_TWO_HIT:
       let newPlayerTwoCards = [...oldState[1]];
       newPlayerTwoCards.push(action.payload);
-      updatedPlayers[0] = newPlayerTwoCards;
+      updatedPlayers[1] = newPlayerTwoCards;
       return updatedPlayers;
     default:
       return oldState;

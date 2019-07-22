@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { dealDealerCards, dealPlayerCards, startPlayerTurn,
    endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips,
    endPayout, endRound, setCurrenBet, dealCompOne, dealCompTwo,
-   compOneHit, compTwoHit, endCompOneTurn, startCompOneTurn, } from '../../redux/actionCreators';
+   compOneHit, compTwoHit, endCompOneTurn, startCompOneTurn,
+   startCompTwoTurn, endCompTwoTurn, } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -83,7 +84,7 @@ class Table extends Component {
       compPlayers.push(<ComputerPlayer key={i} playerNumber={i} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
     }
 
-    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.compOneTurn && !this.props.payout){
+    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.compOneTurn && !this.props.compTwoTurn && !this.props.payout){
       console.log("game started")
       this.props.dealDealerCards();
       this.props.dealCompOne();
@@ -106,8 +107,21 @@ class Table extends Component {
       if(playerTotal > 21){
         console.log("BUST");
         this.props.endPlayerTurn();
+        this.props.startCompTwoTurn();
+      }
+    } else if (this.props.roundStarted && this.props.compTwoTurn){
+      console.log("here")
+      let compTwoTotal = computerPlayerTotals[1];
+      if(compTwoTotal > 21){
+        this.props.endCompTwoTurn();
         this.props.startDealerTurn();
         this.props.dealerRevealCard();
+      } else if (compTwoTotal >= 17){
+        this.props.endCompTwoTurn();
+        this.props.startDealerTurn();
+        this.props.dealerRevealCard();
+      } else {
+        window.setTimeout(this.props.compTwoHit, 1000);
       }
     } else if (this.props.roundStarted && this.props.dealerTurn){
       console.log("dealer turn");
@@ -141,6 +155,7 @@ const mapStateToProps = (store, ownProps) => ({
   playerBet:    store.playerBet,
   computerPlayers: store.computerPlayers,
   compOneTurn:     store.compOneTurn,
+  compTwoTurn:     store.compTwoTurn,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -159,7 +174,9 @@ const mapDispatchToProps = (dispatch) => ({
   compOneHit:      ()=>{dispatch( compOneHit()  )},
   compTwoHit:      ()=>{dispatch( compTwoHit()  )},
   startCompOneTurn:()=>{dispatch( startCompOneTurn() )},
-  endCompOneTurn:  ()=>{dispatch( endCompOneTurn() )},
+  endCompOneTurn:  ()=>{dispatch( endCompOneTurn()   )},
+  startCompTwoTurn:()=>{dispatch( startCompTwoTurn() )},
+  endCompTwoTurn:  ()=>{dispatch( endCompTwoTurn()   )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

@@ -5,6 +5,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
+       COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
       }
        from './actionType';
@@ -47,6 +48,22 @@ function startDealerTurn(){
 
 function endDealerTurn(){
   return { type: DEALER_TURN_FINISHED };
+}
+
+function startCompOneTurn(){
+  return { type: COMP_ONE_TURN_STARTED };
+}
+
+function endCompOneTurn(){
+  return { type: COMP_ONE_TURN_FINISHED };
+}
+
+function startCompTwoTurn(){
+  return { type: COMP_TWO_TURN_STARTED };
+}
+
+function endCompTwoTurn(){
+  return { type: COMP_TWO_TURN_FINISHED };
 }
 
 function startPayout(){

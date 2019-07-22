@@ -6,6 +6,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
        DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
+       COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
       }
        from './actionType';
@@ -70,6 +71,28 @@ const dealerTurnReducer = ( oldState = false, action ) => {
     case DEALER_TURN_STARTED:
       return true;
     case DEALER_TURN_FINISHED:
+      return false;
+    default:
+      return oldState;
+  }
+}
+
+const compOneTurnReducer = ( oldState = false, action ) => {
+  switch(action.type){
+    case COMP_ONE_TURN_STARTED:
+      return true;
+    case COMP_ONE_TURN_FINISHED:
+      return false;
+    default:
+      return oldState;
+  }
+}
+
+const compTwoTurnReducer = ( oldState = false, action ) => {
+  switch(action.type){
+    case COMP_TWO_TURN_STARTED:
+      return true;
+    case COMP_TWO_TURN_FINISHED:
       return false;
     default:
       return oldState;
@@ -155,6 +178,8 @@ const rootReducer = combineReducers({
   payout: payoutReducer,
   playerTurn: playerTurnReducer,
   dealerTurn: dealerTurnReducer,
+  compOneTurn: compOneTurnReducer,
+  compTwoTurn: compTwoTurnReducer,
   dealerCards: dealerCardsReducer,
   playerCards: playerCardsReducer,
   playerChips: playerChipsReducer,

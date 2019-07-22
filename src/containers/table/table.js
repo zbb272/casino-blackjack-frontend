@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { dealDealerCards, dealPlayerCards, startPlayerTurn,
    endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips,
-   endPayout, endRound, setCurrenBet, dealCompOne, dealCompTwo, } from '../../redux/actionCreators';
+   endPayout, endRound, setCurrenBet, dealCompOne, dealCompTwo,
+   compOneHit, compTwoHit, endCompOneTurn, startCompOneTurn, } from '../../redux/actionCreators';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -75,13 +76,31 @@ class Table extends Component {
     let playerTotal = this.calculateTotal(this.props.playerCards);
     let dealerTotal = this.calculateTotal(this.props.dealerCards);
 
-    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.payout){
+    let compPlayers = [];
+    let computerPlayerTotals = [];
+    for(let i = 0; i < this.props.computerPlayers.length; i++){
+      computerPlayerTotals.push(this.calculateTotal(this.props.computerPlayers[i]));
+      compPlayers.push(<ComputerPlayer key={i} playerNumber={i} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
+    }
+
+    if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.compOneTurn && !this.props.payout){
       console.log("game started")
       this.props.dealDealerCards();
       this.props.dealCompOne();
       this.props.dealPlayerCards();
       this.props.dealCompTwo();
-      this.props.startPlayerTurn();
+      this.props.startCompOneTurn();
+    } else if(this.props.roundStarted && this.props.compOneTurn){
+      let compOneTotal = computerPlayerTotals[0];
+      if(compOneTotal > 21){
+        this.props.endCompOneTurn();
+        this.props.startPlayerTurn();
+      } else if (compOneTotal >= 17){
+        this.props.endCompOneTurn();
+        this.props.startPlayerTurn();
+      } else {
+        window.setTimeout(this.props.compOneHit, 1000);
+      }
     } else if(this.props.roundStarted && this.props.playerTurn){
       console.log("user turn");
       if(playerTotal > 21){
@@ -98,13 +117,6 @@ class Table extends Component {
       //window.setTimeout(this.endPayoutStartNewRound, 1000);
     } else {
       console.log("game not started");
-    }
-
-    let compPlayers = [];
-    let computerPlayerTotals = [];
-    for(let i = 0; i < this.props.computerPlayers.length; i++){
-      computerPlayerTotals.push(this.calculateTotal(this.props.computerPlayers[i]));
-      compPlayers.push(<ComputerPlayer key={i} playerNumber={i} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
     }
 
     return (
@@ -128,6 +140,7 @@ const mapStateToProps = (store, ownProps) => ({
   playerChips:  store.playerChips,
   playerBet:    store.playerBet,
   computerPlayers: store.computerPlayers,
+  compOneTurn:     store.compOneTurn,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -139,10 +152,14 @@ const mapDispatchToProps = (dispatch) => ({
   dealerRevealCard:()=>{dispatch( dealerRevealCard())},
   setPlayerChips:(amount)=>{dispatch( setPlayerChips(amount)  )},
   setCurrenBet:  (amount)=>{dispatch( setCurrenBet(amount)    )},
-  endPayout:       ()=>{dispatch( endPayout() )},
-  endRound:        ()=>{dispatch( endRound()  )},
+  endPayout:       ()=>{dispatch( endPayout()   )},
+  endRound:        ()=>{dispatch( endRound()    )},
   dealCompOne:     ()=>{dispatch( dealCompOne() )},
   dealCompTwo:     ()=>{dispatch( dealCompTwo() )},
+  compOneHit:      ()=>{dispatch( compOneHit()  )},
+  compTwoHit:      ()=>{dispatch( compTwoHit()  )},
+  startCompOneTurn:()=>{dispatch( startCompOneTurn() )},
+  endCompOneTurn:  ()=>{dispatch( endCompOneTurn() )},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

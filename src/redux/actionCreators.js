@@ -158,4 +158,5 @@ export { openBlackjackRules, closeBlackjackRules,
          startDealerTurn, endDealerTurn,
          dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
          playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet,
-         dealCompOne, dealCompTwo, compOneHit, compTwoHit, }
+         dealCompOne, dealCompTwo, compOneHit, compTwoHit,
+         startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn, }

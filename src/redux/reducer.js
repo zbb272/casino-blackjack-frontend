@@ -8,6 +8,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
        COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
+       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_HIT, PLAYER_SPLIT_FINISHED,
       }
        from './actionType';
 
@@ -63,6 +64,19 @@ const playerTurnReducer = ( oldState = false, action ) => {
       return false;
     default:
       return oldState;
+  }
+}
+
+const playerSplitReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case PLAYER_SPLIT_STARTED:
+      return true;
+    case PLAYER_SPLIT_HIT:
+      return true;
+    case PLAYER_SPLIT_FINISHED:
+      return false;
+    default:
+      return false;
   }
 }
 
@@ -174,18 +188,19 @@ const computerPlayersReducer = ( oldState = [], action ) => {
 
 const rootReducer = combineReducers({
   blackjackRulesOpen: blackjackRulesReducer,
-  casinoRulesOpen: casinoRulesReducer,
-  roundStarted: roundReducer,
-  payout: payoutReducer,
-  playerTurn: playerTurnReducer,
-  dealerTurn: dealerTurnReducer,
-  compOneTurn: compOneTurnReducer,
-  compTwoTurn: compTwoTurnReducer,
-  dealerCards: dealerCardsReducer,
-  playerCards: playerCardsReducer,
-  playerChips: playerChipsReducer,
-  playerBet: playerBetReducer,
-  computerPlayers: computerPlayersReducer,
+  casinoRulesOpen:    casinoRulesReducer,
+  roundStarted:       roundReducer,
+  payout:             payoutReducer,
+  playerTurn:         playerTurnReducer,
+  playerSplit:        playerSplitReducer,
+  dealerTurn:         dealerTurnReducer,
+  compOneTurn:        compOneTurnReducer,
+  compTwoTurn:        compTwoTurnReducer,
+  dealerCards:        dealerCardsReducer,
+  playerCards:        playerCardsReducer,
+  playerChips:        playerChipsReducer,
+  playerBet:          playerBetReducer,
+  computerPlayers:    computerPlayersReducer,
 })
 
 export default rootReducer;

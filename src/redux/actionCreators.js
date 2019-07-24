@@ -7,6 +7,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
        COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
+       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_HIT, PLAYER_SPLIT_FINISHED,
       }
        from './actionType';
 
@@ -120,6 +121,22 @@ function playerHit(){
   return { type: PLAYER_HIT, payload: card };
 }
 
+function playerSplitHand(card){
+  let cards = [];
+  cards.push(card);
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+
+  return { type: PLAYER_START, payload: cards };
+}
+
+function playerSplitNew(card){
+  let cards = [];
+  cards.push(card);
+  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+
+  return { type: PLAYER_SPLIT_STARTED, payload: cards };
+}
+
 function setPlayerChips(amount){
   return { type: SET_PLAYER_CHIPS, payload: amount };
 }
@@ -159,4 +176,5 @@ export { openBlackjackRules, closeBlackjackRules,
          dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
          playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet,
          dealCompOne, dealCompTwo, compOneHit, compTwoHit,
-         startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn, }
+         startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn,
+         playerSplitHand, playerSplitNew, }

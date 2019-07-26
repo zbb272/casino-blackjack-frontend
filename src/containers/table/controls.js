@@ -51,7 +51,7 @@ class Controls extends Component {
   }
 
   split = () => {
-    if(this.props.playerCards[0].slice(1, 3) === this.props.playerCards[1].slice(1, 3)){
+    if(!this.props.playerSplitCards && this.props.playerCards[0].slice(1, 3) === this.props.playerCards[1].slice(1, 3)){
       console.log("splitting")
       let cards = [];
       cards.push(this.props.playerCards[0]);
@@ -104,13 +104,14 @@ class Controls extends Component {
 }
 
 const mapStateToProps = (store, ownProps) => ({
-  roundStarted:   store.roundStarted,
-  playerTurn:     store.playerTurn,
-  playerCards:    store.playerCards,
-  dealerTurn:     store.dealerTurn,
-  playerBet:      store.playerBet,
-  playerChips:    store.playerChips,
-  playerDoubled:  store.playerDoubled,
+  roundStarted:     store.roundStarted,
+  playerTurn:       store.playerTurn,
+  playerCards:      store.playerCards,
+  dealerTurn:       store.dealerTurn,
+  playerBet:        store.playerBet,
+  playerChips:      store.playerChips,
+  playerDoubled:    store.playerDoubled,
+  playerSplitCards: store.playerSplitCards,
 })
 
 const mapDispatchToProps = (dispatch) => ({

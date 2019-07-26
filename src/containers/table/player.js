@@ -21,6 +21,8 @@ class Player extends Component {
     }
     let splitCards = [];
     if(this.props.playerSplitCards){
+      splitCards.push(<div>Card Total: {this.props.cardTotal}</div>);
+      splitCards.push(<div>Current Bet: {this.props.playerBet}</div>);
       for(let i = 0; i < this.props.playerSplitCards.length; i++){
         splitCards.push(<Card key={`P${i}`} position={i} card={this.props.playerSplitCards[i]}/>);
       }
@@ -30,11 +32,7 @@ class Player extends Component {
       <Container className="playerBox" style={playerBoxStyle}>
         <Grid columns='equal'>
          <Grid.Column>
-           <Segment>
-             <div>Card Total: {this.props.cardTotal}</div>
-             <div>Current Bet: {this.props.playerBet}</div>
-             {splitCards}
-           </Segment>
+           {splitCards}
          </Grid.Column>
          <Grid.Column width={8}>
            <div style={{marginLeft: "-30%"}}>

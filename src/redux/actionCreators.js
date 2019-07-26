@@ -143,6 +143,10 @@ function setPlayerCards(cards){
   return { type: SET_PLAYER_CARDS, payload: cards };
 }
 
+function setPlayerSplitCards(cards){
+  return { type: SET_PLAYER_SPLIT_CARDS, payload: cards };
+}
+
 function setPlayerChips(amount){
   return { type: SET_PLAYER_CHIPS, payload: amount };
 }
@@ -192,4 +196,5 @@ export { openBlackjackRules, closeBlackjackRules,
          dealCompOne, dealCompTwo, compOneHit, compTwoHit,
          startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn,
          playerSplitHand, playerSplitNew,
-         setPlayerDoubledTrue, resetPlayerDoubled, }
+         setPlayerDoubledTrue, resetPlayerDoubled,
+         setPlayerSplitCards, setPlayerCards, }

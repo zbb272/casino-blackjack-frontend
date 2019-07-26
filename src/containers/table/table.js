@@ -156,6 +156,8 @@ const mapStateToProps = (store, ownProps) => ({
   computerPlayers: store.computerPlayers,
   compOneTurn:     store.compOneTurn,
   compTwoTurn:     store.compTwoTurn,
+  playerSplitCards:store.playerSplitCards,
+  playerSplitTurn: store.playerSplitTurn,
 })
 
 const mapDispatchToProps = (dispatch) => ({

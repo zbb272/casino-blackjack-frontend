@@ -19,6 +19,12 @@ class Player extends Component {
         cards.push(<Card key={`P${i}`} position={i} card={this.props.playerCards[i]}/>);
       }
     }
+    let splitCards = [];
+    if(this.props.playerSplitCards){
+      for(let i = 0; i < this.props.playerSplitCards.length; i++){
+        splitCards.push(<Card key={`P${i}`} position={i} card={this.props.playerSplitCards[i]}/>);
+      }
+    }
 
     return (
       <Container className="playerBox" style={playerBoxStyle}>
@@ -27,10 +33,13 @@ class Player extends Component {
            <Segment>
              <div>Card Total: {this.props.cardTotal}</div>
              <div>Current Bet: {this.props.playerBet}</div>
+             {splitCards}
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
            <div style={{marginLeft: "-30%"}}>
+           <div>Card Total: {this.props.cardTotal}</div>
+           <div>Current Bet: {this.props.playerBet}</div>
             {cards}
            </div>
          </Grid.Column>
@@ -44,9 +53,10 @@ class Player extends Component {
 }
 
 const mapStateToProps = (store, ownProps) => ({
-  playerCards:  store.playerCards,
-  playerChips:  store.playerChips,
-  playerBet:    store.playerBet,
+  playerCards:      store.playerCards,
+  playerChips:      store.playerChips,
+  playerBet:        store.playerBet,
+  playerSplitCards: store.playerSplitCards,
 })
 
 export default connect(mapStateToProps)(Player);

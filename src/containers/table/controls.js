@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { startRound, playerHit, endPlayerTurn, dealerRevealCard,
-   startDealerTurn, setCurrenBet } from '../../redux/actionCreators';
+   startDealerTurn, setCurrenBet, setPlayerDoubledTrue, } from '../../redux/actionCreators';
 
 class Controls extends Component {
 
@@ -33,6 +33,22 @@ class Controls extends Component {
     this.props.dealerRevealCard();
   }
 
+  split = () => {
+    if(this.props.playerCards[0].slice(1, 3) === this.props.playerCards[1].slice(1, 3)){
+      console.log("splitting")
+    } else {
+      window.alert("cannot split")
+    }
+  }
+
+  double = () => {
+    let newBet = this.props.playerBet * 2;
+    if(!this.props.playerDoubled && this.props.playerChips >= newBet) {
+      this.props.setCurrenBet(newBet);
+      this.props.setPlayerDoubledTrue();
+    }
+  }
+
 
   render(){
     let elements = [];
@@ -40,8 +56,8 @@ class Controls extends Component {
     if(this.props.roundStarted && this.props.playerTurn){
       elements.push( <button key="pHit" onClick={this.hit}>Hit</button> );
       elements.push( <button key="pStay" onClick={this.stay}>Stay</button> );
-      elements.push( <button key="pDouble">Double</button> );
-      elements.push( <button key="pSplit">Split</button> );
+      elements.push( <button key="pDouble" onClick={this.double}>Double</button> );
+      elements.push( <button key="pSplit" onClick={this.split}>Split</button> );
     } else if(this.props.dealerTurn){
       elements.push( <button key="pDealer">Dealer Turn Now</button>);
     } else {
@@ -60,12 +76,13 @@ class Controls extends Component {
 }
 
 const mapStateToProps = (store, ownProps) => ({
-  roundStarted: store.roundStarted,
-  playerTurn:   store.playerTurn,
-  playerCards:  store.playerCards,
-  dealerTurn:   store.dealerTurn,
-  playerBet:    store.playerBet,
-  playerChips:  store.playerChips,
+  roundStarted:   store.roundStarted,
+  playerTurn:     store.playerTurn,
+  playerCards:    store.playerCards,
+  dealerTurn:     store.dealerTurn,
+  playerBet:      store.playerBet,
+  playerChips:    store.playerChips,
+  playerDoubled:  store.playerDoubled,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -74,6 +91,7 @@ const mapDispatchToProps = (dispatch) => ({
   dealerRevealCard:()=>{dispatch( dealerRevealCard() )},
   endPlayerTurn:   ()=>{dispatch( endPlayerTurn()    )},
   startDealerTurn: ()=>{dispatch( startDealerTurn()  )},
+  setPlayerDoubledTrue:   ()=>{dispatch( setPlayerDoubledTrue()    )},
   setCurrenBet:    (amount)=>{dispatch( setCurrenBet(amount))}
 })
 

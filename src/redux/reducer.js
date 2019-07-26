@@ -8,7 +8,9 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
        COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
-       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_HIT, PLAYER_SPLIT_FINISHED,
+       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_FINISHED,
+       SET_PLAYER_CARDS, SET_PLAYER_SPLIT_CARDS, PLAYER_SPLIT_HIT,
+       PLAYER_DOUBLED, RESET_PLAYER_DOUBLED,
       }
        from './actionType';
 
@@ -67,13 +69,35 @@ const playerTurnReducer = ( oldState = false, action ) => {
   }
 }
 
-const playerSplitReducer = ( oldState = false, action ) => {
+const playerSplitTurnReducer = ( oldState = false, action ) => {
   switch(action.type) {
     case PLAYER_SPLIT_STARTED:
       return true;
-    case PLAYER_SPLIT_HIT:
-      return true;
     case PLAYER_SPLIT_FINISHED:
+      return false;
+    default:
+      return false;
+  }
+}
+
+const playerSplitCardsReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case SET_PLAYER_SPLIT_CARDS:
+      return action.payload;
+    case PLAYER_SPLIT_HIT:
+      let newCards = [...oldState];
+      newCards.push(action.payload);
+      return newCards;
+    default:
+      return false;
+  }
+}
+
+const playerDoubleReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case PLAYER_DOUBLED:
+      return true;
+    case RESET_PLAYER_DOUBLED:
       return false;
     default:
       return false;
@@ -138,6 +162,8 @@ const playerCardsReducer = ( oldState = false, action ) => {
       let newCards = [...oldState];
       newCards.push(action.payload);
       return newCards;
+    case SET_PLAYER_CARDS:
+      return action.payload;
     default:
       return oldState;
   }
@@ -192,7 +218,8 @@ const rootReducer = combineReducers({
   roundStarted:       roundReducer,
   payout:             payoutReducer,
   playerTurn:         playerTurnReducer,
-  playerSplit:        playerSplitReducer,
+  playerSplitTurn:    playerSplitTurnReducer,
+  playerSplitCards:   playerSplitCardsReducer,
   dealerTurn:         dealerTurnReducer,
   compOneTurn:        compOneTurnReducer,
   compTwoTurn:        compTwoTurnReducer,
@@ -200,6 +227,7 @@ const rootReducer = combineReducers({
   playerCards:        playerCardsReducer,
   playerChips:        playerChipsReducer,
   playerBet:          playerBetReducer,
+  playerDoubled:      playerDoubleReducer,
   computerPlayers:    computerPlayersReducer,
 })
 

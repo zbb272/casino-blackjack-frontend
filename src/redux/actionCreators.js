@@ -7,7 +7,9 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
        COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
-       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_HIT, PLAYER_SPLIT_FINISHED,
+       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_FINISHED,
+       SET_PLAYER_CARDS, SET_PLAYER_SPLIT_CARDS, PLAYER_SPLIT_HIT,
+       PLAYER_DOUBLED, RESET_PLAYER_DOUBLED,
       }
        from './actionType';
 
@@ -137,12 +139,24 @@ function playerSplitNew(card){
   return { type: PLAYER_SPLIT_STARTED, payload: cards };
 }
 
+function setPlayerCards(cards){
+  return { type: SET_PLAYER_CARDS, payload: cards };
+}
+
 function setPlayerChips(amount){
   return { type: SET_PLAYER_CHIPS, payload: amount };
 }
 
 function setCurrenBet(amount){
   return { type: SET_CURRENT_BET, payload: amount };
+}
+
+function setPlayerDoubledTrue(){
+  return { type: PLAYER_DOUBLED };
+}
+
+function resetPlayerDoubled(){
+  return { type: RESET_PLAYER_DOUBLED };
 }
 
 function dealCompOne(){
@@ -177,4 +191,5 @@ export { openBlackjackRules, closeBlackjackRules,
          playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet,
          dealCompOne, dealCompTwo, compOneHit, compTwoHit,
          startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn,
-         playerSplitHand, playerSplitNew, }
+         playerSplitHand, playerSplitNew,
+         setPlayerDoubledTrue, resetPlayerDoubled, }

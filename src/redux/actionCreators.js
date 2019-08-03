@@ -10,9 +10,11 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        PLAYER_SPLIT_STARTED, PLAYER_SPLIT_FINISHED,
        SET_PLAYER_CARDS, SET_PLAYER_SPLIT_CARDS, PLAYER_SPLIT_HIT,
        PLAYER_DOUBLED, RESET_PLAYER_DOUBLED,
+       SET_COMP_ONE_CARDS, SET_COMP_TWO_CARDS, SET_DEALER_CARDS,
       }
        from './actionType';
 
+//CURRENTLY UNUSED ACTION CREATORS
 function openBlackjackRules(){
   return { type: BLACKJACK_RULES_OPEN };
 }
@@ -29,6 +31,9 @@ function closeCasinoRules(){
   return { type: CASINO_RULES_CLOSED };
 }
 
+//DEFINIETELY NEEDED
+
+//---FOR TRACKING GAME PROGRESS
 function startRound(){
   return { type: ROUND_STARTED };
 }
@@ -77,6 +82,43 @@ function endPayout(){
   return { type: PAYOUT_FINISHED };
 }
 
+function setPlayerDoubledTrue(){
+  return { type: PLAYER_DOUBLED };
+}
+
+function resetPlayerDoubled(){
+  return { type: RESET_PLAYER_DOUBLED };
+}
+//---FOR SETTING CARDS
+function setPlayerCards(cards){
+  return { type: SET_PLAYER_CARDS, payload: cards };
+}
+
+function setPlayerSplitCards(cards){
+  return { type: SET_PLAYER_SPLIT_CARDS, payload: cards };
+}
+
+function setPlayerChips(amount){
+  return { type: SET_PLAYER_CHIPS, payload: amount };
+}
+
+function setCurrenBet(amount){
+  return { type: SET_CURRENT_BET, payload: amount };
+}
+//--SETTERS THAT NEED TO BE MADE
+function setCompOneCards(cards){
+  return { type: SET_COMP_ONE_CARDS, payload: cards };
+}
+
+function setCompTwoCards(cards){
+  return { type: SET_COMP_TWO_CARDS, payload: cards };
+}
+
+function setDealerCards(cards){
+  return { type: SET_DEALER_CARDS, payload: cards };
+}
+
+//HELPER FUNCTIONS
 function getSuite(){
   let suiteNum = Math.floor(Math.random() * 3);
   switch(suiteNum){
@@ -93,6 +135,7 @@ function getSuite(){
   }
 }
 
+//CAN PROBABLY BE MOVED OR ERASED
 function dealDealerCards(){
   let cards = [];
   cards.push("A-1");
@@ -137,30 +180,6 @@ function playerSplitNew(card){
   cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
 
   return { type: PLAYER_SPLIT_STARTED, payload: cards };
-}
-
-function setPlayerCards(cards){
-  return { type: SET_PLAYER_CARDS, payload: cards };
-}
-
-function setPlayerSplitCards(cards){
-  return { type: SET_PLAYER_SPLIT_CARDS, payload: cards };
-}
-
-function setPlayerChips(amount){
-  return { type: SET_PLAYER_CHIPS, payload: amount };
-}
-
-function setCurrenBet(amount){
-  return { type: SET_CURRENT_BET, payload: amount };
-}
-
-function setPlayerDoubledTrue(){
-  return { type: PLAYER_DOUBLED };
-}
-
-function resetPlayerDoubled(){
-  return { type: RESET_PLAYER_DOUBLED };
 }
 
 function dealCompOne(){

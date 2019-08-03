@@ -21,6 +21,7 @@ class Player extends Component {
     }
     let splitCards = [];
     if(this.props.playerSplitCards){
+      console.log(this.props.playerSplitCards)
       splitCards.push(<div>Card Total: {this.props.cardTotal}</div>);
       splitCards.push(<div>Current Bet: {this.props.playerBet}</div>);
       for(let i = 0; i < this.props.playerSplitCards.length; i++){

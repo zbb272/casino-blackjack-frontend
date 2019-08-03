@@ -12,7 +12,7 @@ const Card = ( props ) => {
   }
 
   let getNumber = (number) => {
-    if(number < 10){
+    if(number <= 10){
       return number;
     } else if (number === 11){
       return "J";

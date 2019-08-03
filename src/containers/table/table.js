@@ -75,6 +75,7 @@ class Table extends Component {
 
   render(){
     let playerTotal = this.calculateTotal(this.props.playerCards);
+    let playerSplitTotal = this.calculateTotal(this.props.playerSplitCards);
     let dealerTotal = this.calculateTotal(this.props.dealerCards);
 
     let compPlayers = [];

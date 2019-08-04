@@ -1,16 +1,16 @@
 import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        CASINO_RULES_OPEN, CASINO_RULES_CLOSED,
        PAYOUT_STARTED, PAYOUT_FINISHED,
-       ROUND_FINISHED, ROUND_STARTED, PLAYER_TURN_STARTED,
-       PLAYER_TURN_FINISHED, DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
-       DEALER_START, DEALER_REVEAL, DEALER_HIT, PLAYER_START, PLAYER_HIT,
-       SET_PLAYER_CHIPS, SET_CURRENT_BET,
-       COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
-       COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
-       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_FINISHED,
-       SET_PLAYER_CARDS, SET_PLAYER_SPLIT_CARDS, PLAYER_SPLIT_HIT,
+       ROUND_FINISHED, ROUND_STARTED,
+       PLAYER_TURN_STARTED, PLAYER_TURN_FINISHED,
+       PLAYER_SPLIT_TURN_STARTED, PLAYER_SPLIT_TURN_FINISHED,
+       DEALER_TURN_STARTED, DEALER_TURN_FINISHED,
+       COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED,
+       COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
+       SET_PLAYER_CARDS, SET_PLAYER_SPLIT_CARDS,
        PLAYER_DOUBLED, RESET_PLAYER_DOUBLED,
        SET_COMP_ONE_CARDS, SET_COMP_TWO_CARDS, SET_DEALER_CARDS,
+       SET_PLAYER_CHIPS, SET_CURRENT_BET,
       }
        from './actionType';
 
@@ -48,6 +48,14 @@ function startPlayerTurn(){
 
 function endPlayerTurn(){
   return { type: PLAYER_TURN_FINISHED };
+}
+
+function startPlayerSplitTurn(){
+  return { type: PLAYER_SPLIT_TURN_STARTED };
+}
+
+function endPlayerSplitTurn(){
+  return { type: PLAYER_SPLIT_TURN_FINISHED };
 }
 
 function startDealerTurn(){
@@ -118,102 +126,12 @@ function setDealerCards(cards){
   return { type: SET_DEALER_CARDS, payload: cards };
 }
 
-//HELPER FUNCTIONS
-function getSuite(){
-  let suiteNum = Math.floor(Math.random() * 3);
-  switch(suiteNum){
-    case 0:
-      return "C";
-    case 1:
-      return "D";
-    case 2:
-      return "H";
-    case 3:
-      return "S";
-    default:
-      return "S";
-  }
-}
-
-//CAN PROBABLY BE MOVED OR ERASED
-function dealDealerCards(){
-  let cards = [];
-  cards.push("A-1");
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  return { type: DEALER_START, payload: cards };
-}
-
-function dealerRevealCard(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: DEALER_REVEAL, payload: card };
-}
-
-function dealerHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: DEALER_HIT, payload: card };
-}
-
-function dealPlayerCards(){
-  let cards = [];
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-
-  return { type: PLAYER_START, payload: cards };
-}
-
-function playerHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: PLAYER_HIT, payload: card };
-}
-
-function playerSplitHand(card){
-  let cards = [];
-  cards.push(card);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-
-  return { type: PLAYER_START, payload: cards };
-}
-
-function playerSplitNew(card){
-  let cards = [];
-  cards.push(card);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-
-  return { type: PLAYER_SPLIT_STARTED, payload: cards };
-}
-
-function dealCompOne(){
-  let cards = [];
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  return { type: COMP_ONE_START, payload: cards };
-}
-
-function dealCompTwo(){
-  let cards = [];
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  return { type: COMP_TWO_START, payload: cards };
-}
-
-function compOneHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: COMP_ONE_HIT, payload: card };
-}
-
-function compTwoHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: COMP_TWO_HIT, payload: card };
-}
-
 export { openBlackjackRules, closeBlackjackRules,
          openCasinoRules, closeCasinoRules,
          startRound, endRound, startPlayerTurn, endPlayerTurn,
-         startDealerTurn, endDealerTurn,
-         dealDealerCards, dealerRevealCard, dealerHit, dealPlayerCards,
-         playerHit, setPlayerChips, startPayout, endPayout, setCurrenBet,
-         dealCompOne, dealCompTwo, compOneHit, compTwoHit,
+         startDealerTurn, endDealerTurn, startPayout, endPayout,
          startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn,
-         playerSplitHand, playerSplitNew,
+         startPlayerSplitTurn, endPlayerSplitTurn,
+         setPlayerChips, setCurrenBet,
          setPlayerDoubledTrue, resetPlayerDoubled,
          setPlayerSplitCards, setPlayerCards, }

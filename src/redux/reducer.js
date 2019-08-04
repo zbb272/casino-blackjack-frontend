@@ -8,7 +8,7 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
        SET_PLAYER_CHIPS, SET_CURRENT_BET,
        COMP_ONE_TURN_STARTED, COMP_TWO_TURN_STARTED, COMP_ONE_TURN_FINISHED, COMP_TWO_TURN_FINISHED,
        COMP_ONE_START, COMP_TWO_START, COMP_ONE_HIT, COMP_TWO_HIT,
-       PLAYER_SPLIT_STARTED, PLAYER_SPLIT_FINISHED,
+       PLAYER_SPLIT_TURN_STARTED, PLAYER_SPLIT_TURN_FINISHED,
        SET_PLAYER_CARDS, SET_PLAYER_SPLIT_CARDS, PLAYER_SPLIT_HIT,
        PLAYER_DOUBLED, RESET_PLAYER_DOUBLED,
       }
@@ -71,9 +71,9 @@ const playerTurnReducer = ( oldState = false, action ) => {
 
 const playerSplitTurnReducer = ( oldState = false, action ) => {
   switch(action.type) {
-    case PLAYER_SPLIT_STARTED:
+    case PLAYER_SPLIT_TURN_STARTED:
       return true;
-    case PLAYER_SPLIT_FINISHED:
+    case PLAYER_SPLIT__TURN_FINISHED:
       return false;
     default:
       return false;

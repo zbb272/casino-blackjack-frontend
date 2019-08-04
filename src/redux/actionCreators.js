@@ -14,7 +14,9 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
       }
        from './actionType';
 
+//-------------
 //CURRENTLY UNUSED ACTION CREATORS
+//-------------
 function openBlackjackRules(){
   return { type: BLACKJACK_RULES_OPEN };
 }
@@ -31,9 +33,9 @@ function closeCasinoRules(){
   return { type: CASINO_RULES_CLOSED };
 }
 
-//DEFINIETELY NEEDED
-
-//---FOR TRACKING GAME PROGRESS
+//-------------
+//FOR TRACKING GAME PROGRESS
+//-------------
 function startRound(){
   return { type: ROUND_STARTED };
 }
@@ -97,7 +99,9 @@ function setPlayerDoubledTrue(){
 function resetPlayerDoubled(){
   return { type: RESET_PLAYER_DOUBLED };
 }
+//-------------
 //---FOR SETTING CARDS
+//-------------
 function setPlayerCards(cards){
   return { type: SET_PLAYER_CARDS, payload: cards };
 }
@@ -113,7 +117,7 @@ function setPlayerChips(amount){
 function setCurrenBet(amount){
   return { type: SET_CURRENT_BET, payload: amount };
 }
-//--SETTERS THAT NEED TO BE MADE
+
 function setCompOneCards(cards){
   return { type: SET_COMP_ONE_CARDS, payload: cards };
 }

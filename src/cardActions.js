@@ -1,5 +1,6 @@
-import { setPlayerCards, setPlayerSplitCards,
-         setCompOneCards, setCompTwoCards, setDealerCards } from './redux/actionCreators';
+import {
+  setPlayerCards, setPlayerSplitCards,
+  setCompOneCards, setCompTwoCards, setDealerCards } from './redux/actionCreators';
 
 //HELPER FUNCTIONS
 function getSuite(){
@@ -18,19 +19,30 @@ function getSuite(){
   }
 }
 
-//CAN PROBABLY BE MOVED OR ERASED
+function getCard(){
+  return `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
+}
+
+function hit(oldCards){
+  let cards = [...oldCards];
+  cards.push(getCard());
+  return cards;
+}
+
+
+//CARD FUNCTIONS
 function dealDealerCards(){
   let cards = [];
   cards.push("A-1");
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(getCard());
 
   setDealerCards(cards);
 }
 
 function dealPlayerCards(){
   let cards = [];
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(getCard());
+  cards.push(getCard());
 
   setPlayerCards(cards);
 }
@@ -38,7 +50,7 @@ function dealPlayerCards(){
 function playerSplitHand(card){
   let cards = [];
   cards.push(card);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(getCard());
 
   setPlayerCards(cards);
 }
@@ -46,56 +58,56 @@ function playerSplitHand(card){
 function playerSplitNew(card){
   let cards = [];
   cards.push(card);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(getCard());
 
   setPlayerSplitCards(cards);
 }
 
 function dealCompOne(){
   let cards = [];
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(getCard());
+  cards.push(getCard());
 
   setCompOneCards(cards);
 }
 
 function dealCompTwo(){
   let cards = [];
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-  cards.push(`${getSuite()}${Math.floor(Math.random() * 13) + 2}`);
+  cards.push(getCard());
+  cards.push(getCard());
 
   setCompTwoCards(cards);
 }
 
-function dealerRevealCard(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: DEALER_REVEAL, payload: card };
+function dealerRevealCard(oldCards){
+  let cards = [...oldCards];
+  cards.splice(0, 1, getCard());
+
+  setDealerCards(cards)
 }
 
-function dealerHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: DEALER_HIT, payload: card };
+function dealerHit(oldCards){
+  setDealerCards(hit(oldCards));
 }
 
-
-
-function playerHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: PLAYER_HIT, payload: card };
+function playerHit(oldCards){
+  setPlayerCards(hit(oldCards));
 }
 
-
-
-
-
-
-
-function compOneHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: COMP_ONE_HIT, payload: card };
+function playerSplitHit(oldCards){
+  setPlayerSplitCards(hit(oldCards));
 }
 
-function compTwoHit(){
-  let card = `${getSuite()}${Math.floor(Math.random() * 13) + 2}`;
-  return { type: COMP_TWO_HIT, payload: card };
+function compOneHit(oldCards){
+  setCompOneCards(hit(oldCards));
+}
+
+function compTwoHit(oldCards){
+  setCompTwoCards(hit(oldCards));
+}
+
+export {
+  dealDealerCards, dealPlayerCards, dealCompOne, dealCompTwo,
+  playerSplitHand, playerSplitNew, dealerRevealCard,
+  dealerHit, playerHit, compOneHit, compTwoHit,
 }

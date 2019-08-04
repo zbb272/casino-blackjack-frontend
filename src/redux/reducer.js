@@ -14,6 +14,9 @@ import { BLACKJACK_RULES_OPEN, BLACKJACK_RULES_CLOSED,
       }
        from './actionType';
 
+//-------------
+//RULES REDUCERS
+//-------------
 const blackjackRulesReducer = ( oldState = true, action ) => {
   switch(action.type) {
     case BLACKJACK_RULES_OPEN:
@@ -36,6 +39,11 @@ const casinoRulesReducer = ( oldState  = true, action ) => {
   }
 }
 
+
+
+//-------------
+//TURN REDUCERS
+//-------------
 const roundReducer = ( oldState = false, action ) => {
   switch(action.type) {
     case ROUND_FINISHED:
@@ -75,19 +83,6 @@ const playerSplitTurnReducer = ( oldState = false, action ) => {
       return true;
     case PLAYER_SPLIT__TURN_FINISHED:
       return false;
-    default:
-      return false;
-  }
-}
-
-const playerSplitCardsReducer = ( oldState = false, action ) => {
-  switch(action.type) {
-    case SET_PLAYER_SPLIT_CARDS:
-      return action.payload;
-    case PLAYER_SPLIT_HIT:
-      let newCards = [...oldState];
-      newCards.push(action.payload);
-      return newCards;
     default:
       return false;
   }
@@ -137,18 +132,22 @@ const compTwoTurnReducer = ( oldState = false, action ) => {
   }
 }
 
+//-------------
+//CARD REDUCERS
+//-------------
+const playerSplitCardsReducer = ( oldState = false, action ) => {
+  switch(action.type) {
+    case SET_PLAYER_SPLIT_CARDS:
+      return action.payload;
+    default:
+      return false;
+  }
+}
+
 const dealerCardsReducer = ( oldState = false, action ) => {
   switch(action.type) {
-    case DEALER_START:
+    case SET_DEALER_CARDS:
       return action.payload;
-    case DEALER_REVEAL:
-      let newCards = [...oldState];
-      newCards.splice(0, 1, action.payload);
-      return newCards;
-    case DEALER_HIT:
-      let newState = [...oldState];
-      newState.push(action.payload);
-      return newState;
     default:
       return oldState;
   }
@@ -156,12 +155,6 @@ const dealerCardsReducer = ( oldState = false, action ) => {
 
 const playerCardsReducer = ( oldState = false, action ) => {
   switch(action.type) {
-    case PLAYER_START:
-      return action.payload;
-    case PLAYER_HIT:
-      let newCards = [...oldState];
-      newCards.push(action.payload);
-      return newCards;
     case SET_PLAYER_CARDS:
       return action.payload;
     default:
@@ -169,6 +162,25 @@ const playerCardsReducer = ( oldState = false, action ) => {
   }
 }
 
+const computerPlayersReducer = ( oldState = [[] , []], action ) => {
+  let updatedPlayers = [...oldState];
+  switch(action.type) {
+    case SET_COMP_ONE_CARDS:
+      updatedPlayers = [];
+      updatedPlayers[0] = action.payload;
+      return updatedPlayers;
+    case SET_COMP_TWO_CARDS:
+      updatedPlayers = [];
+      updatedPlayers[1] = action.payload;
+      return updatedPlayers;
+    default:
+      return oldState;
+  }
+}
+
+//-------------
+//CHIP & BET REDUCERS
+//-------------
 const playerChipsReducer = ( oldState = false, action ) => {
   switch(action.type) {
     case SET_PLAYER_CHIPS:
@@ -182,31 +194,6 @@ const playerBetReducer = ( oldState = false, action ) => {
   switch(action.type) {
     case SET_CURRENT_BET:
       return action.payload;
-    default:
-      return oldState;
-  }
-}
-
-const computerPlayersReducer = ( oldState = [], action ) => {
-  let updatedPlayers = [...oldState];
-  switch(action.type) {
-    case COMP_ONE_START:
-      updatedPlayers = [];
-      updatedPlayers.push(action.payload);
-      return updatedPlayers;
-    case COMP_TWO_START:
-      updatedPlayers.push(action.payload);
-      return updatedPlayers;
-    case COMP_ONE_HIT:
-      let newPlayerOneCards = [...oldState[0]];
-      newPlayerOneCards.push(action.payload);
-      updatedPlayers[0] = newPlayerOneCards;
-      return updatedPlayers;
-    case COMP_TWO_HIT:
-      let newPlayerTwoCards = [...oldState[1]];
-      newPlayerTwoCards.push(action.payload);
-      updatedPlayers[1] = newPlayerTwoCards;
-      return updatedPlayers;
     default:
       return oldState;
   }

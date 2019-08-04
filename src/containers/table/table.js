@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { dealDealerCards, dealPlayerCards, startPlayerTurn,
-   endPlayerTurn, startDealerTurn, dealerRevealCard, setPlayerChips,
-   endPayout, endRound, setCurrenBet, dealCompOne, dealCompTwo,
-   compOneHit, compTwoHit, endCompOneTurn, startCompOneTurn,
-   startCompTwoTurn, endCompTwoTurn, } from '../../redux/actionCreators';
+import {
+  startPlayerTurn, endPlayerTurn, startDealerTurn,
+  setPlayerChips, setCurrenBet, endPayout, endRound,
+  endCompOneTurn, startCompOneTurn, startCompTwoTurn, endCompTwoTurn, 
+} from '../../redux/actionCreators';
+import {
+  dealDealerCards, dealPlayerCards, dealCompOne, dealCompTwo,
+  dealerRevealCard, compOneHit, compTwoHit,
+
+} from '../../cardActions';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';

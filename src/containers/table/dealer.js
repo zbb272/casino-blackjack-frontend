@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { dealerRevealCard, dealerHit, endDealerTurn, startPayout, } from '../../redux/actionCreators';
+import {
+  endDealerTurn, startPayout, 
+} from '../../redux/actionCreators';
+import {
+  dealerRevealCard, dealerHit,
+} from '../../cardActions';
 import { Segment, Grid, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Card from '../../components/card';

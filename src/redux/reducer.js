@@ -167,11 +167,9 @@ const computerPlayersReducer = ( oldState = [[] , []], action ) => {
   let updatedPlayers = [...oldState];
   switch(action.type) {
     case SET_COMP_ONE_CARDS:
-      updatedPlayers = [];
       updatedPlayers[0] = action.payload;
       return updatedPlayers;
     case SET_COMP_TWO_CARDS:
-      updatedPlayers = [];
       updatedPlayers[1] = action.payload;
       return updatedPlayers;
     default:

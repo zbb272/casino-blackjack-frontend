@@ -68,7 +68,7 @@ function dealCompOne(){
   let cards = [];
   cards.push(getCard());
   cards.push(getCard());
-
+  
   return (dispatch) => dispatch(setCompOneCards(cards));
 }
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
   startPlayerTurn, endPlayerTurn, startDealerTurn,
   setPlayerChips, setCurrenBet, endPayout, endRound,
-  endCompOneTurn, startCompOneTurn, startCompTwoTurn, endCompTwoTurn, 
+  endCompOneTurn, startCompOneTurn, startCompTwoTurn, endCompTwoTurn,
 } from '../../redux/actionCreators';
 import {
   dealDealerCards, dealPlayerCards, dealCompOne, dealCompTwo,
@@ -78,6 +78,14 @@ class Table extends Component {
     this.props.endPayout();
   }
 
+  computerOneHit = () => {
+    this.props.compOneHit(this.props.computerPlayers[0])
+  }
+
+  computerTwoHit = () => {
+    this.props.compTwoHit(this.props.computerPlayers[1])
+  }
+
   render(){
     let playerTotal = this.calculateTotal(this.props.playerCards);
     let playerSplitTotal = this.calculateTotal(this.props.playerSplitCards);
@@ -96,7 +104,10 @@ class Table extends Component {
       this.props.dealCompOne();
       this.props.dealPlayerCards();
       this.props.dealCompTwo();
-      this.props.startCompOneTurn();
+      if(this.props.computerPlayers[0].length > 0 && this.props.computerPlayers[1].length > 0){
+        this.props.startCompOneTurn();
+      }
+
     } else if(this.props.roundStarted && this.props.compOneTurn){
       let compOneTotal = computerPlayerTotals[0];
       if(compOneTotal > 21){
@@ -106,7 +117,7 @@ class Table extends Component {
         this.props.endCompOneTurn();
         this.props.startPlayerTurn();
       } else {
-        window.setTimeout(this.props.compOneHit, 1000);
+        window.setTimeout(this.computerOneHit, 1000);
       }
     } else if(this.props.roundStarted && this.props.playerTurn){
       console.log("user turn");
@@ -127,7 +138,7 @@ class Table extends Component {
         this.props.startDealerTurn();
         this.props.dealerRevealCard();
       } else {
-        window.setTimeout(this.props.compTwoHit, 1000);
+        window.setTimeout(this.props.computerTwoHit, 1000);
       }
     } else if (this.props.roundStarted && this.props.dealerTurn){
       console.log("dealer turn");
@@ -179,8 +190,8 @@ const mapDispatchToProps = (dispatch) => ({
   endRound:        ()=>{dispatch( endRound()    )},
   dealCompOne:     ()=>{dispatch( dealCompOne() )},
   dealCompTwo:     ()=>{dispatch( dealCompTwo() )},
-  compOneHit:      ()=>{dispatch( compOneHit()  )},
-  compTwoHit:      ()=>{dispatch( compTwoHit()  )},
+  compOneHit:      (oldCards)=>{dispatch( compOneHit(oldCards)  )},
+  compTwoHit:      (oldCards)=>{dispatch( compTwoHit(oldCards)  )},
   startCompOneTurn:()=>{dispatch( startCompOneTurn() )},
   endCompOneTurn:  ()=>{dispatch( endCompOneTurn()   )},
   startCompTwoTurn:()=>{dispatch( startCompTwoTurn() )},

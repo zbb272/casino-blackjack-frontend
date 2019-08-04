@@ -130,12 +130,15 @@ function setDealerCards(cards){
   return { type: SET_DEALER_CARDS, payload: cards };
 }
 
-export { openBlackjackRules, closeBlackjackRules,
-         openCasinoRules, closeCasinoRules,
-         startRound, endRound, startPlayerTurn, endPlayerTurn,
-         startDealerTurn, endDealerTurn, startPayout, endPayout,
-         startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn,
-         startPlayerSplitTurn, endPlayerSplitTurn,
-         setPlayerChips, setCurrenBet,
-         setPlayerDoubledTrue, resetPlayerDoubled,
-         setPlayerSplitCards, setPlayerCards, }
+export {
+  openBlackjackRules, closeBlackjackRules,
+  openCasinoRules, closeCasinoRules,
+  startRound, endRound, startPlayerTurn, endPlayerTurn,
+  startDealerTurn, endDealerTurn, startPayout, endPayout,
+  startCompOneTurn, startCompTwoTurn, endCompOneTurn, endCompTwoTurn,
+  startPlayerSplitTurn, endPlayerSplitTurn,
+  setPlayerChips, setCurrenBet,
+  setPlayerDoubledTrue, resetPlayerDoubled,
+  setPlayerSplitCards, setPlayerCards, setDealerCards,
+  setCompOneCards, setCompTwoCards,
+}

@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { startRound, playerHit, endPlayerTurn, dealerRevealCard,
-   startDealerTurn, setCurrenBet, setPlayerDoubledTrue,
-   setPlayerCards, setPlayerSplitCards, } from '../../redux/actionCreators';
+import {
+  startRound, endPlayerTurn,
+  startDealerTurn, setCurrenBet, setPlayerDoubledTrue,
+} from '../../redux/actionCreators';
+import {
+  playerHit, dealerRevealCard, playerSplitHand, playerSplitNew,
+} from '../../cardActions';
+
 
 class Controls extends Component {
-
-   getSuite = () => {
-    let suiteNum = Math.floor(Math.random() * 3);
-    switch(suiteNum){
-      case 0:
-        return "C";
-      case 1:
-        return "D";
-      case 2:
-        return "H";
-      case 3:
-        return "S";
-      default:
-        return "S";
-    }
-  }
 
   startGame = () => {
     this.props.startRound();
@@ -53,17 +42,10 @@ class Controls extends Component {
   split = () => {
     if(!this.props.playerSplitCards && this.props.playerCards[0].slice(1, 3) === this.props.playerCards[1].slice(1, 3)){
       console.log("splitting")
-      let cards = [];
-      cards.push(this.props.playerCards[0]);
-      cards.push(`${this.getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-
-      let splitCards = [];
-      splitCards.push(this.props.playerCards[1]);
-      splitCards.push(`${this.getSuite()}${Math.floor(Math.random() * 13) + 2}`);
-
-      this.props.setPlayerCards(cards);
-      this.props.setPlayerSplitCards(splitCards);
-
+      let card1 = this.props.playerCards[0];
+      let card2 = this.props.playerCards[1];
+      this.props.playerSplitHand(card1);
+      this.props.playerSplitNew(card2);
     } else {
       window.alert("cannot split")
     }
@@ -122,8 +104,6 @@ const mapDispatchToProps = (dispatch) => ({
   startDealerTurn: ()=>{dispatch( startDealerTurn()  )},
   setPlayerDoubledTrue:   ()=>{dispatch( setPlayerDoubledTrue()    )},
   setCurrenBet:    (amount)=>{dispatch( setCurrenBet(amount))},
-  setPlayerCards:  (cards)=>{dispatch( setPlayerCards(cards))},
-  setPlayerSplitCards: (cards)=>{dispatch( setPlayerSplitCards(cards))},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Controls);

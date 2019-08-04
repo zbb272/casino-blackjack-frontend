@@ -1,6 +1,7 @@
 import {
   setPlayerCards, setPlayerSplitCards,
-  setCompOneCards, setCompTwoCards, setDealerCards } from './redux/actionCreators';
+  setCompOneCards, setCompTwoCards, setDealerCards
+} from './redux/actionCreators';
 
 //HELPER FUNCTIONS
 function getSuite(){
@@ -36,7 +37,7 @@ function dealDealerCards(){
   cards.push("A-1");
   cards.push(getCard());
 
-  setDealerCards(cards);
+  return (dispatch) => dispatch(setDealerCards(cards));
 }
 
 function dealPlayerCards(){
@@ -44,7 +45,7 @@ function dealPlayerCards(){
   cards.push(getCard());
   cards.push(getCard());
 
-  setPlayerCards(cards);
+  return (dispatch) => dispatch(setPlayerCards(cards));
 }
 
 function playerSplitHand(card){
@@ -52,7 +53,7 @@ function playerSplitHand(card){
   cards.push(card);
   cards.push(getCard());
 
-  setPlayerCards(cards);
+  return (dispatch) => dispatch(setPlayerCards(cards));
 }
 
 function playerSplitNew(card){
@@ -60,7 +61,7 @@ function playerSplitNew(card){
   cards.push(card);
   cards.push(getCard());
 
-  setPlayerSplitCards(cards);
+  return (dispatch) => dispatch(setPlayerSplitCards(cards));
 }
 
 function dealCompOne(){
@@ -68,7 +69,7 @@ function dealCompOne(){
   cards.push(getCard());
   cards.push(getCard());
 
-  setCompOneCards(cards);
+  return (dispatch) => dispatch(setCompOneCards(cards));
 }
 
 function dealCompTwo(){
@@ -76,34 +77,34 @@ function dealCompTwo(){
   cards.push(getCard());
   cards.push(getCard());
 
-  setCompTwoCards(cards);
+  return (dispatch) => dispatch(setCompTwoCards(cards));
 }
 
 function dealerRevealCard(oldCards){
   let cards = [...oldCards];
   cards.splice(0, 1, getCard());
 
-  setDealerCards(cards)
+  return (dispatch) => dispatch(setDealerCards(cards));
 }
 
 function dealerHit(oldCards){
-  setDealerCards(hit(oldCards));
+  return (dispatch) => dispatch(setDealerCards(hit(oldCards)));
 }
 
 function playerHit(oldCards){
-  setPlayerCards(hit(oldCards));
+  return (dispatch) => dispatch(setPlayerCards(hit(oldCards)));
 }
 
 function playerSplitHit(oldCards){
-  setPlayerSplitCards(hit(oldCards));
+  return (dispatch) => dispatch(setPlayerSplitCards(hit(oldCards)));
 }
 
 function compOneHit(oldCards){
-  setCompOneCards(hit(oldCards));
+  return (dispatch) => dispatch(setCompOneCards(hit(oldCards)));
 }
 
 function compTwoHit(oldCards){
-  setCompTwoCards(hit(oldCards));
+  return (dispatch) => dispatch(setCompTwoCards(hit(oldCards)));
 }
 
 export {

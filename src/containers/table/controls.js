@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
   startRound, endPlayerTurn,
-  startDealerTurn, setCurrenBet, setPlayerDoubledTrue,
+  startCompTwoTurn, setCurrenBet, setPlayerDoubledTrue,
 } from '../../redux/actionCreators';
 import {
   playerHit, dealerRevealCard, playerSplitHand, playerSplitNew,
@@ -29,14 +29,13 @@ class Controls extends Component {
 
   hit = () => {
     console.log("hit");
-    this.props.playerHit();
+    this.props.playerHit(this.props.playerCards);
   }
 
   stay = () => {
     console.log("stay");
     this.props.endPlayerTurn();
-    this.props.startDealerTurn();
-    this.props.dealerRevealCard();
+    this.props.startCompTwoTurn();
   }
 
   split = () => {
@@ -98,10 +97,10 @@ const mapStateToProps = (store, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   startRound:      ()=>{dispatch( startRound()       )},
-  playerHit:       ()=>{dispatch( playerHit()        )},
-  dealerRevealCard:()=>{dispatch( dealerRevealCard() )},
+  playerHit:       (oldCards)=>{dispatch( playerHit(oldCards)        )},
+  dealerRevealCard:(oldCards)=>{dispatch( dealerRevealCard(oldCards) )},
   endPlayerTurn:   ()=>{dispatch( endPlayerTurn()    )},
-  startDealerTurn: ()=>{dispatch( startDealerTurn()  )},
+  startCompTwoTurn: ()=>{dispatch( startCompTwoTurn() )},
   setPlayerDoubledTrue:   ()=>{dispatch( setPlayerDoubledTrue()    )},
   setCurrenBet:    (amount)=>{dispatch( setCurrenBet(amount))},
 })

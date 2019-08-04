@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  endDealerTurn, startPayout, 
+  endDealerTurn, startPayout,
 } from '../../redux/actionCreators';
 import {
   dealerRevealCard, dealerHit,
@@ -27,7 +27,7 @@ class Dealer extends Component {
 
   hit = () => {
     console.log("dealer hit");
-    this.props.dealerHit();
+    this.props.dealerHit(this.props.dealerCards);
   }
 
   stay = () => {
@@ -93,7 +93,7 @@ const mapStateToProps = (store, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   dealerRevealCard:      ()=>{dispatch( dealerRevealCard() )},
-  dealerHit:             ()=>{dispatch( dealerHit() )},
+  dealerHit:             (oldCards)=>{dispatch( dealerHit(oldCards) )},
   endDealerTurn:         ()=>{dispatch( endDealerTurn() )},
   startPayout:           ()=>{dispatch( startPayout() )},
 })

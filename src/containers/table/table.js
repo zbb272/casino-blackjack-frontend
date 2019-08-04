@@ -127,18 +127,17 @@ class Table extends Component {
         this.props.startCompTwoTurn();
       }
     } else if (this.props.roundStarted && this.props.compTwoTurn){
-      console.log("here")
       let compTwoTotal = computerPlayerTotals[1];
       if(compTwoTotal > 21){
         this.props.endCompTwoTurn();
+        this.props.dealerRevealCard(this.props.dealerCards);
         this.props.startDealerTurn();
-        this.props.dealerRevealCard();
       } else if (compTwoTotal >= 17){
         this.props.endCompTwoTurn();
+        this.props.dealerRevealCard(this.props.dealerCards);
         this.props.startDealerTurn();
-        this.props.dealerRevealCard();
       } else {
-        window.setTimeout(this.props.computerTwoHit, 1000);
+        window.setTimeout(this.computerTwoHit, 1000);
       }
     } else if (this.props.roundStarted && this.props.dealerTurn){
       console.log("dealer turn");
@@ -183,7 +182,7 @@ const mapDispatchToProps = (dispatch) => ({
   startPlayerTurn: ()=>{dispatch( startPlayerTurn() )},
   endPlayerTurn:   ()=>{dispatch( endPlayerTurn()   )},
   startDealerTurn: ()=>{dispatch( startDealerTurn() )},
-  dealerRevealCard:()=>{dispatch( dealerRevealCard())},
+  dealerRevealCard:(oldCards)=>{dispatch( dealerRevealCard(oldCards))},
   setPlayerChips:(amount)=>{dispatch( setPlayerChips(amount)  )},
   setCurrenBet:  (amount)=>{dispatch( setCurrenBet(amount)    )},
   endPayout:       ()=>{dispatch( endPayout()   )},

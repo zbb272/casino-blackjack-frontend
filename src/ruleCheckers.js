@@ -89,7 +89,7 @@ function doubleRule4(dealerUpcard, userCards){
   if(getCardNumber(dealerUpcard) === 5 || getCardNumber(dealerUpcard) === 6
   && userCards.length === 2){
     if(getCardNumber(userCards[0]) === 14 || getCardNumber(userCards[1]) === 14){
-      if(getCardNumber(userCards[0]) <= 7 || getCardNumber(userCards[1]) <= 7)){
+      if(getCardNumber(userCards[0]) <= 7 || getCardNumber(userCards[1]) <= 7){
         console.log("Double Rule4: user should double down");
       }
     }

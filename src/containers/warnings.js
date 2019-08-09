@@ -42,10 +42,10 @@ class Warnings extends Component {
   }
 }
 
-const mapStateToProps = (store, ownProps) => {
+const mapStateToProps = (store, ownProps) => ({
   dealerCards: store.dealerCards,
   playerCards: store.playerCards,
   playerTurn:  store.playerTurn,
-}
+});
 
 export default connect(mapStateToProps)(Warnings);

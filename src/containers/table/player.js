@@ -30,20 +30,20 @@ class Player extends Component {
     }
 
     return (
-      <Container className="playerBox" style={playerBoxStyle}>
+      <Container className="playerBox" style={playerBoxStyle} className="playerBox">
         <Grid columns='equal'>
          <Grid.Column>
            {splitCards}
          </Grid.Column>
          <Grid.Column width={8}>
-           <div style={{marginLeft: "-30%"}}>
-           <div>Card Total: {this.props.cardTotal}</div>
-           <div>Current Bet: {this.props.playerBet}</div>
-            {cards}
+           <div style={{marginLeft: "-30%"}} className="playerCards">
+             <div>Card Total: {this.props.cardTotal}</div>
+             <div>Current Bet: {this.props.playerBet}</div>
+              {cards}
            </div>
          </Grid.Column>
          <Grid.Column>
-           <PlayerInformation chipTotal={this.props.playerChips}/>
+           <PlayerInformation chipTotal={this.props.playerChips} className="playerInformation"/>
          </Grid.Column>
        </Grid>
       </Container>

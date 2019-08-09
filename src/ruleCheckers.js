@@ -109,3 +109,8 @@ function doubleRule4(dealerUpcard, userCards){
 //two, three, four, five, or six
 
 //do not split your hand when you have a pair of 4's, 5's, or 10's
+
+export {
+  hitRule1, hitRule2, hitRule3, hitRule4, hitRule5, hitRule6,
+  doubleRule1, doubleRule2, doubleRule3, doubleRule4,
+}

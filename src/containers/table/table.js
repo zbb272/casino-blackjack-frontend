@@ -10,6 +10,9 @@ import {
   dealerRevealCard, compOneHit, compTwoHit,
 
 } from '../../cardActions';
+import {
+  calculateTotal,
+} from '../../cardHelperFunctions';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -32,38 +35,11 @@ class Table extends Component {
     props.setCurrenBet(10);
   }
 
-  calculateTotal = (cards) => {
-    let total = 0;
-    let aces = [];
-    if(cards){
-      for(let i = 0; i < cards.length; i++){
-        let card = cards[i];
-        let cardNum = parseInt(card.slice(1));
-        if(cardNum === 14){
-          aces.push(14);
-        }
-        else if(cardNum > 10){
-          total += 10;
-        } else if(cardNum > 1){
-          total += cardNum;
-        }
-      }
-      if(aces.length > 0){
-        for(let i = 0; i < aces.length; i++){
-          if((total + 11) > 21){
-            total += 1;
-          } else {
-            total += 11;
-          }
-        }
-      }
-    }
-    return total;
-  }
+
 
   endPayoutStartNewRound = () => {
-    let playerTotal = this.calculateTotal(this.props.playerCards);
-    let dealerTotal = this.calculateTotal(this.props.dealerCards);
+    let playerTotal = calculateTotal(this.props.playerCards);
+    let dealerTotal = calculateTotal(this.props.dealerCards);
 
     if(playerTotal > 21){
       this.props.setPlayerChips(this.props.playerChips - this.props.playerBet)
@@ -87,14 +63,14 @@ class Table extends Component {
   }
 
   render(){
-    let playerTotal = this.calculateTotal(this.props.playerCards);
-    let playerSplitTotal = this.calculateTotal(this.props.playerSplitCards);
-    let dealerTotal = this.calculateTotal(this.props.dealerCards);
+    let playerTotal = calculateTotal(this.props.playerCards);
+    let playerSplitTotal = calculateTotal(this.props.playerSplitCards);
+    let dealerTotal = calculateTotal(this.props.dealerCards);
 
     let compPlayers = [];
     let computerPlayerTotals = [];
     for(let i = 0; i < this.props.computerPlayers.length; i++){
-      computerPlayerTotals.push(this.calculateTotal(this.props.computerPlayers[i]));
+      computerPlayerTotals.push(calculateTotal(this.props.computerPlayers[i]));
       compPlayers.push(<ComputerPlayer key={i} playerNumber={i} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
     }
 

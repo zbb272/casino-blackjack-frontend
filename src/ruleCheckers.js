@@ -9,7 +9,7 @@ import {
 //hitting until your hand has a value of at least 17
 function hitRule1(dealerUpcard, userCards){
   if(getCardNumber(dealerUpcard) > 6 && calculateTotal(userCards) < 17){
-    console.log("Rule 1: user should hit");
+    console.log("Hit Rule 1: user should hit");
   }
 }
 
@@ -18,7 +18,7 @@ function hitRule1(dealerUpcard, userCards){
 function hitRule2(dealerUpcard, userCards){
   if(calculateTotal(userCards) < 12){
     if(getCardNumber(dealerUpcard) < 7 && getCardNumber(dealerUpcard) > 3){
-      console.log("Rule 2: user should hit");
+      console.log("Hit Rule 2: user should hit");
     }
   }
 }
@@ -28,16 +28,16 @@ function hitRule2(dealerUpcard, userCards){
 function hitRule3(dealerUpcard, userCards){
   if(getCardNumber(dealerUpcard) === 2 || getCardNumber(dealerUpcard) === 3){
     if(calculateTotal(userCards) < 13){
-      console.log("Rule 3: user should hit");
+      console.log("Hit Rule 3: user should hit");
     }
   }
 }
 
 //if you have a soft hand such as an ace and a five, you should
 //continue hitting until the value of your hand is 18 or more
-function hitRule4(dealerUpcard, userCards){
+function hitRule4(userCards){
   if(isHandSoft(userCards) && calculateTotal(userCards) < 18){
-    console.log("Rule 4: user should hit");
+    console.log("Hit Rule 4: user should hit");
   }
 }
 
@@ -45,14 +45,15 @@ function hitRule4(dealerUpcard, userCards){
 function hitRule5(dealerUpcard, userCards){
   if(getCardNumber(userCards[0]) === 9 && getCardNumber(userCards[1]) === 9
   && getCardNumber(dealerUpcard) === 7){
-    console.log("Rule 5: user should stay");
+    console.log("Hit Rule 5: user should stay");
   }
 }
 
 //stand on hard 16 against a dealers 10 upcard if your 16 is multi-card
 function hitRule6(dealerUpcard, userCards){
-  if(userCards.length > 2 && calculateTotal(userCards) === 16 && getCardNumber(dealerUpcard) === 10){
-    console.log("Rule6: user should stay")
+  if(userCards.length > 2 && calculateTotal(userCards) === 16
+  && getCardNumber(dealerUpcard) >= 10 && getCardNumber(dealerUpcard) <= 13){
+    console.log("Hit Rule6: user should stay")
   }
 }
 
@@ -62,13 +63,38 @@ function hitRule6(dealerUpcard, userCards){
 
 //you should double down if your initial cards have a combined value
 //of 11
+function doubleRule1(userCards){
+  if(userCards.length === 2 && calculateTotal(userCards) === 11){
+    console.log("Double Rule1: user should double down");
+  }
+}
 
 //if your cards total 10, double down if the dealers upcard is 9 or less
+function doubleRule2(dealerUpcard, userCards){
+  if(getCardNumber(dealerUpcard) <= 9 && calculateTotal(userCards) === 10){
+    console.log("Double Rule2: user should double down");
+  }
+}
 
 //if your initial two cards have a total value of nine, you should
 //only double down if the dealer is showing a two through six
+function doubleRule3(dealerUpcard, userCards){
+  if(userCards.length === 2 && calculateTotal(userCards) === 9 && getCardNumber(dealerUpcard) >= 2 && getCardNumber(dealerUpcard) <= 6){
+    console.log("Double Rule3: user should double down");
+  }
+}
 
 //always double down A2 - A7 when the dealers upcard ia a 5 or 6
+function doubleRule4(dealerUpcard, userCards){
+  if(getCardNumber(dealerUpcard) === 5 || getCardNumber(dealerUpcard) === 6
+  && userCards.length === 2){
+    if(getCardNumber(userCards[0]) === 14 || getCardNumber(userCards[1]) === 14){
+      if(getCardNumber(userCards[0]) <= 7 || getCardNumber(userCards[1]) <= 7)){
+        console.log("Double Rule4: user should double down");
+      }
+    }
+  }
+}
 
 //------------------
 //  split rules

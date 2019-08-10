@@ -1,14 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Grid, Segment, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import Card from '../../components/card';
-
-const playerBoxStyle = {
-  minHeight: 200,
-  marginTop: 0,
-  position:  "absolute",
-  textAlign: "center"
-}
 
 class ComputerPlayer extends Component {
 

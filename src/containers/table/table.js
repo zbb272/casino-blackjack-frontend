@@ -19,15 +19,6 @@ import Player from './player';
 import ComputerPlayer from './computerPlayer';
 import Controls from './controls'
 
-//styles
-const tableContainerStyle = {
-  position: "fixed",
-  marginTop: 56,
-  minHeight: 500,
-  minWidth: 600,
-  backgroundColor: "green",
-}
-
 class Table extends Component {
   constructor(props){
     super(props);
@@ -126,12 +117,12 @@ class Table extends Component {
     }
 
     return (
-      <Container style={tableContainerStyle} className="Table">
+      <div className="table">
         <Dealer cardTotal={dealerTotal}/>
         {compPlayers}
         <Player cardTotal={playerTotal} />
         <Controls/>
-      </Container>
+      </div>
     )
   }
 }

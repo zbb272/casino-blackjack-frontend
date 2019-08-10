@@ -86,7 +86,7 @@ function doubleRule3(dealerUpcard, userCards){
 
 //always double down A2 - A7 when the dealers upcard ia a 5 or 6
 function doubleRule4(dealerUpcard, userCards){
-  if(getCardNumber(dealerUpcard) === 5 || getCardNumber(dealerUpcard) === 6
+  if((getCardNumber(dealerUpcard) === 5 || getCardNumber(dealerUpcard) === 6)
   && userCards.length === 2){
     if(getCardNumber(userCards[0]) === 14 || getCardNumber(userCards[1]) === 14){
       if(getCardNumber(userCards[0]) <= 7 || getCardNumber(userCards[1]) <= 7){

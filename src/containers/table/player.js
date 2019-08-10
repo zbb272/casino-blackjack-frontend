@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Segment, Container } from 'semantic-ui-react';
+import { Grid, Container } from 'semantic-ui-react';
 import Card from '../../components/card';
 import PlayerInformation from '../../components/playerInformation';
-
-const playerBoxStyle = {
-  minHeight: 200,
-  marginTop: 200,
-  textAlign: "center"
-}
 
 class Player extends Component {
 
@@ -30,23 +24,23 @@ class Player extends Component {
     }
 
     return (
-      <Container className="playerBox" style={playerBoxStyle} className="playerBox">
+      <div  className="player-box">
         <Grid columns='equal'>
          <Grid.Column>
            {splitCards}
          </Grid.Column>
          <Grid.Column width={8}>
-           <div style={{marginLeft: "-30%"}} className="playerCards">
+           <div className="player-cards">
              <div>Card Total: {this.props.cardTotal}</div>
              <div>Current Bet: {this.props.playerBet}</div>
               {cards}
            </div>
          </Grid.Column>
          <Grid.Column>
-           <PlayerInformation chipTotal={this.props.playerChips} className="playerInformation"/>
+           <PlayerInformation chipTotal={this.props.playerChips} className="player-information"/>
          </Grid.Column>
        </Grid>
-      </Container>
+      </div>
     )
   }
 }

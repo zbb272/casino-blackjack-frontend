@@ -9,20 +9,6 @@ import { Segment, Grid, Container } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import Card from '../../components/card';
 
-const dealerBoxStyle = {
-  minHeight: 200,
-  textAlign: "center"
-}
-
-const dealerCardBoxStyle = {
-  position: "absolute",
-  left: "30%",
-  marginLeft: "-75px",
-  marginTop: 100,
-  minHeight: 60,
-  minWidth: 175,
-}
-
 class Dealer extends Component {
 
   hit = () => {
@@ -65,7 +51,7 @@ class Dealer extends Component {
     }
 
     return(
-      <Container className="dealerBox" style={dealerBoxStyle}>
+      <div className="dealer-box">
         <Grid columns='equal'>
          <Grid.Column>
            <Segment>
@@ -73,7 +59,7 @@ class Dealer extends Component {
            </Segment>
          </Grid.Column>
          <Grid.Column width={8}>
-           <div className="dealerCards" style={dealerCardBoxStyle}>
+           <div className="dealer-cards">
             {cards}
            </div>
          </Grid.Column>
@@ -81,7 +67,7 @@ class Dealer extends Component {
            <Segment>Dealer Info</Segment>
          </Grid.Column>
        </Grid>
-      </Container>
+      </div>
     )
   }
 }

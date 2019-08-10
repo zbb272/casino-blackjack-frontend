@@ -5,7 +5,7 @@ const Card = ( props ) => {
   let cardStyle = {
     position: "absolute",
     marginTop: 0,
-    marginLeft: props.position * 30,
+    marginLeft: (props.position * 30 - 40),
     maxHeight: 160,
     minHeight: 130,
     maxWidth: 80,

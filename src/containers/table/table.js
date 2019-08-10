@@ -62,7 +62,7 @@ class Table extends Component {
     let computerPlayerTotals = [];
     for(let i = 0; i < this.props.computerPlayers.length; i++){
       computerPlayerTotals.push(calculateTotal(this.props.computerPlayers[i]));
-      compPlayers.push(<ComputerPlayer key={i} playerNumber={i} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
+      compPlayers.push(<ComputerPlayer key={i} playerNumber={i+1} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
     }
 
     if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.compOneTurn && !this.props.compTwoTurn && !this.props.payout){

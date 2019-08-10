@@ -7,6 +7,7 @@ import {
 import {
   playerHit, dealerRevealCard, playerSplitHand, playerSplitNew,
 } from '../../cardActions';
+import { Button } from 'semantic-ui-react';
 
 
 class Controls extends Component {
@@ -63,21 +64,21 @@ class Controls extends Component {
     let elements = [];
 
     if(this.props.roundStarted && this.props.playerTurn){
-      elements.push( <button key="pHit" onClick={this.hit}>Hit</button> );
-      elements.push( <button key="pStay" onClick={this.stay}>Stay</button> );
-      elements.push( <button key="pDouble" onClick={this.double}>Double</button> );
-      elements.push( <button key="pSplit" onClick={this.split}>Split</button> );
+      elements.push( <Button key="pHit" onClick={this.hit}>Hit</Button> );
+      elements.push( <Button key="pStay" onClick={this.stay}>Stay</Button> );
+      elements.push( <Button key="pDouble" onClick={this.double}>Double</Button> );
+      elements.push( <Button key="pSplit" onClick={this.split}>Split</Button> );
     } else if(this.props.dealerTurn){
-      elements.push( <button key="pDealer">Dealer Turn Now</button>);
+      elements.push( <Button key="pDealer">Dealer Turn Now</Button>);
     } else {
-      elements.push(<button key="lowerBet"  onClick={this.lowerBet}>Lower Bet</button>);
-      elements.push(<button key="raiseBet"  onClick={this.raiseBet}>Raise Bet</button>);
-      elements.push(<button key="startgame" onClick={this.startGame}>Deal</button>);
+      elements.push(<Button key="lowerBet"  onClick={this.lowerBet}>Lower Bet</Button>);
+      elements.push(<Button key="raiseBet"  onClick={this.raiseBet}>Raise Bet</Button>);
+      elements.push(<Button key="startgame" onClick={this.startGame}>Deal</Button>);
     }
 
 
     return (
-      <div>
+      <div className="controls">
         {elements}
       </div>
     )

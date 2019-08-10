@@ -1,5 +1,6 @@
 
 /* --- table style --- */
+
 .table {
   position: fixed;
   margin-top: 56px;
@@ -9,6 +10,7 @@
 }
 
 /* --- player styles --- */
+
 .player-box {
   min-height: 200px;
   margin-top: 200px;
@@ -16,7 +18,8 @@
 }
 
 .player-cards {
-  margin-left: "-30%";
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .player-information {
@@ -24,6 +27,7 @@
 }
 
 /* --- dealer styles --- */
+
 .dealer-box {
   min-height: 200px;
   text-align: center;
@@ -31,9 +35,44 @@
 
 .dealer-cards {
   position: absolute;
-  left: "30%";
+  left: 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  min-height: 60px;
+  min-width: 175px;
+}
+
+/* --- computer players styles --- */
+
+.computer-player-1 {
+  min-height: 200px;
+  position: absolute;
+  left: 100px;
+  margin-top: 50px;
+}
+
+.computer-player-2 {
+  min-height: 200px;
+  position: absolute;
+  left: 650px;
+  margin-top: 50px;
+}
+
+/* --- controls style --- */
+.controls{
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* --- warning styles --- */
+
+.warnings{
+  position: absolute;
+  left: 30%;
   margin-left: -75px;
-  margin-top: 100px;
+  margin-top: 680px;
   min-height: 60px;
   min-width: 175px;
 }

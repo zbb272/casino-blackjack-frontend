@@ -6,7 +6,6 @@ class ComputerPlayer extends Component {
 
   render(){
     let cards = [];
-    let marginL = 400 * this.props.playerNumber;
     if(this.props.playerCards){
       for(let i = 0; i < this.props.playerCards.length; i++){
         cards.push(<Card key={`P${i}`} position={i} card={this.props.playerCards[i]}/>);
@@ -14,12 +13,12 @@ class ComputerPlayer extends Component {
     }
 
     return (
-      <Container className="playerBox" style={{minHeight: 200, position:"absolute", left: marginL}}>
+      <div className={`computer-player-${this.props.playerNumber}`} >
          <div>Card Total: {this.props.cardTotal}</div>
          <div style={{marginLeft: "-30%"}}>
           {cards}
          </div>
-      </Container>
+      </div>
     )
   }
 }

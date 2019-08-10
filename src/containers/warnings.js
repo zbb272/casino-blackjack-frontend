@@ -6,15 +6,6 @@ import {
   doubleRule1, doubleRule2, doubleRule3, doubleRule4,
 } from '../ruleCheckers.js';
 
-const warningsStyle = {
-  position: "absolute",
-  left: "30%",
-  marginLeft: "-75px",
-  marginTop: 640,
-  minHeight: 60,
-  minWidth: 175,
-}
-
 class Warnings extends Component {
   constructor(props){
     super(props);
@@ -33,7 +24,7 @@ class Warnings extends Component {
 
   render(){
     return (
-      <div style={warningsStyle}>
+      <div className="warnings">
         <Segment>
           warnings go here
         </Segment>

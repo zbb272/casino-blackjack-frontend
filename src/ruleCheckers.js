@@ -110,7 +110,29 @@ function doubleRule4(dealerUpcard, userCards){
 
 //do not split your hand when you have a pair of 4's, 5's, or 10's
 
+
+//-----------------
+// helper functions
+//-----------------
+
+function checkAllRules(dealerCards, userCards){
+  if(dealerCards && userCards){
+    let dealerUpcard = dealerCards[1];
+    hitRule1(dealerUpcard, userCards);
+    hitRule2(dealerUpcard, userCards);
+    hitRule3(dealerUpcard, userCards);
+    hitRule4(userCards);
+    hitRule5(dealerUpcard, userCards);
+    hitRule6(dealerUpcard, userCards);
+    doubleRule1(userCards);
+    doubleRule2(dealerUpcard, userCards);
+    doubleRule3(dealerUpcard, userCards);
+    doubleRule4(dealerUpcard, userCards);
+  }
+}
+
 export {
   hitRule1, hitRule2, hitRule3, hitRule4, hitRule5, hitRule6,
   doubleRule1, doubleRule2, doubleRule3, doubleRule4,
+  checkAllRules,
 }

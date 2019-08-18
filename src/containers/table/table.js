@@ -13,6 +13,9 @@ import {
 import {
   calculateTotal,
 } from '../../cardHelperFunctions';
+import {
+  checkAllRules,
+} from '../../ruleCheckers';
 import { Container } from 'semantic-ui-react';
 import Dealer from './dealer';
 import Player from './player';
@@ -58,12 +61,20 @@ class Table extends Component {
     let playerSplitTotal = calculateTotal(this.props.playerSplitCards);
     let dealerTotal = calculateTotal(this.props.dealerCards);
 
+    //------------------
+    //PUSH COMPUTER PLAYERS INTO ARRAY TO PUT INTO JSX CODE
+    //------------------
+
     let compPlayers = [];
     let computerPlayerTotals = [];
     for(let i = 0; i < this.props.computerPlayers.length; i++){
       computerPlayerTotals.push(calculateTotal(this.props.computerPlayers[i]));
       compPlayers.push(<ComputerPlayer key={i} playerNumber={i+1} cardTotal={computerPlayerTotals[i]} playerCards={this.props.computerPlayers[i]} />);
     }
+
+    //---------------------
+    //CHECK THE GAME STATUS/ WHOSE TURN IT IS
+    //---------------------
 
     if(this.props.roundStarted && !this.props.playerTurn && !this.props.dealerTurn && !this.props.compOneTurn && !this.props.compTwoTurn && !this.props.payout){
       console.log("game started")
@@ -74,7 +85,6 @@ class Table extends Component {
       if(this.props.computerPlayers[0].length > 0 && this.props.computerPlayers[1].length > 0){
         this.props.startCompOneTurn();
       }
-
     } else if(this.props.roundStarted && this.props.compOneTurn){
       let compOneTotal = computerPlayerTotals[0];
       if(compOneTotal > 21){
@@ -115,6 +125,13 @@ class Table extends Component {
     } else {
       console.log("game not started");
     }
+
+    //--------------
+    //CHECK RULES
+    //--------------
+
+    checkAllRules(this.props.dealerCards, this.props.playerCards);
+
 
     return (
       <div className="table">
